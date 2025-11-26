@@ -431,15 +431,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /home/codespace/.python/current/lib/python3.12/site-packages (2.3.3)
-Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.python/current/lib/python3.12/site-packages (from pandas) (1.26.4)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /home/codespace/.local/lib/python3.12/site-packages (2.3.3)
+Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.3.4)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2025.2)
 Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
-
-<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
-<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
 </pre></div>
 </div>
 </div>
@@ -449,58 +446,74 @@ Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
-<span class="c1"># 📦 Filter Request URI yang Mengandung .html</span>
+<span class="c1"># 📦 Filter Request URI yang Mengandung .html (VERSI FINAL)</span>
 <span class="c1"># ==========================================================</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1️⃣ Baca file CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/webusage.csv&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Baca file CSV dengan parser yang lebih toleran</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;Data/webusage.csv&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>       <span class="c1"># parser Python (lebih fleksibel)</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>    <span class="c1"># skip baris yang rusak</span>
+<span class="p">)</span>
 
-<span class="c1"># 2️⃣ Info &amp; contoh data</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom (hapus spasi &amp; tanda kutip di awal/akhir)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
-<span class="c1"># 3️⃣ Pastikan kolom ada</span>
-<span class="k">if</span> <span class="s1">&#39;Request URI&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request URI&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Cari kolom yang seharusnya &quot;Request URI&quot;</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;request uri&quot;</span><span class="p">:</span>
+        <span class="n">target_col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
+
+<span class="k">if</span> <span class="n">target_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kolom &#39;Request URI&#39; tidak ditemukan. Kolom yang ada: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom Request URI terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
 <span class="c1"># 4️⃣ Filter URL yang mengandung &#39;.html&#39;</span>
-<span class="n">html_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request URI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.html&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">html_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.html&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
 
-<span class="c1"># 5️⃣ Tampilkan hasil</span>
+<span class="c1"># 5️⃣ Tampilkan contoh hasil</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Request URI yang Mengandung .html ===&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">html_df</span><span class="p">[</span><span class="s1">&#39;Request URI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">html_df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># 6️⃣ Hitung total baris hasil filter</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total URI yang mengandung .html:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">html_df</span><span class="p">))</span>
 
-<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
-<span class="n">html_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;filtered_html_requests.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_html_requests.csv&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># 7️⃣ Simpan hasil ke file baru (di dalam folder Data)</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;Data/filtered_html_requests.csv&quot;</span>
+<span class="n">html_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
 &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 132258 entries, 0 to 132257
+RangeIndex: 40158 entries, 0 to 40157
 Data columns (total 9 columns):
- #   Column                            Non-Null Count   Dtype 
----  ------                            --------------   ----- 
- 0   Remote host                       132258 non-null  object
- 1   Remote logname                    132258 non-null  object
- 2   Remote user                       132258 non-null  object
- 3   Request time                      132258 non-null  object
- 4   Request method                    132258 non-null  object
- 5   Request URI                       132258 non-null  object
- 6   Request Protocol                  132258 non-null  object
- 7   Status                            132258 non-null  int64 
- 8   Size of response (incl. headers)  132258 non-null  int64 
+ #   Column                            Non-Null Count  Dtype 
+---  ------                            --------------  ----- 
+ 0   Remote host                       40158 non-null  object
+ 1   Remote logname                    40158 non-null  object
+ 2   Remote user                       40158 non-null  object
+ 3   Request time                      40158 non-null  object
+ 4   Request method                    40158 non-null  object
+ 5   Request URI                       40158 non-null  object
+ 6   Request Protocol                  40158 non-null  object
+ 7   Status                            40158 non-null  int64 
+ 8   Size of response (incl. headers)  40158 non-null  int64 
 dtypes: int64(2), object(7)
-memory usage: 9.1+ MB
+memory usage: 2.8+ MB
 None
 
 === 5 Baris Pertama ===
@@ -525,6 +538,8 @@ None
 3                             39943  
 4                             17247  
 
+✅ Kolom Request URI terdeteksi sebagai: &#39;Request URI&#39;
+
 === 10 Request URI yang Mengandung .html ===
 0     /index.html
 1     /index.html
@@ -538,9 +553,9 @@ None
 12      /faq.html
 Name: Request URI, dtype: object
 
-Jumlah total URI yang mengandung .html: 79176
+Jumlah total URI yang mengandung .html: 24069
 
-✅ File hasil filter disimpan sebagai &#39;filtered_html_requests.csv&#39;
+✅ File hasil filter disimpan sebagai &#39;Data/filtered_html_requests.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -556,53 +571,69 @@ Jumlah total URI yang mengandung .html: 79176
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_html_requests.csv&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Baca file (gunakan parser Python agar tidak error)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;Data/filtered_html_requests.csv&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># 2️⃣ Tampilkan informasi awal</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom agar konsisten</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
-<span class="c1"># 3️⃣ Pastikan kolom &#39;Status&#39; ada</span>
-<span class="k">if</span> <span class="s1">&#39;Status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Status&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Temukan nama kolom &#39;Status&#39; yang benar</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span>
+        <span class="n">target_col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-<span class="c1"># 4️⃣ Filter hanya yang Status = 200</span>
-<span class="n">status_200</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">target_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;Status&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom Status terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Filter baris dengan Status = 200</span>
+<span class="n">status_200</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span>
 
 <span class="c1"># 5️⃣ Tampilkan hasil</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris dengan Status = 200 ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">status_200</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="c1"># 6️⃣ Hitung jumlah total baris hasil filter</span>
+<span class="c1"># 6️⃣ Hitung total baris hasil filter</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris dengan Status = 200:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">status_200</span><span class="p">))</span>
 
 <span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
-<span class="n">status_200</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_status_200.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_status_200.csv&#39;&quot;</span><span class="p">)</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;Data/filtered_status_200.csv&quot;</span>
+<span class="n">status_200</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
 &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 79176 entries, 0 to 79175
+RangeIndex: 24069 entries, 0 to 24068
 Data columns (total 9 columns):
  #   Column                            Non-Null Count  Dtype 
 ---  ------                            --------------  ----- 
- 0   Remote host                       79176 non-null  object
- 1   Remote logname                    79176 non-null  object
- 2   Remote user                       79176 non-null  object
- 3   Request time                      79176 non-null  object
- 4   Request method                    79176 non-null  object
- 5   Request URI                       79176 non-null  object
- 6   Request Protocol                  79176 non-null  object
- 7   Status                            79176 non-null  int64 
- 8   Size of response (incl. headers)  79176 non-null  int64 
+ 0   Remote host                       24069 non-null  object
+ 1   Remote logname                    24069 non-null  object
+ 2   Remote user                       24069 non-null  object
+ 3   Request time                      24069 non-null  object
+ 4   Request method                    24069 non-null  object
+ 5   Request URI                       24069 non-null  object
+ 6   Request Protocol                  24069 non-null  object
+ 7   Status                            24069 non-null  int64 
+ 8   Size of response (incl. headers)  24069 non-null  int64 
 dtypes: int64(2), object(7)
-memory usage: 5.4+ MB
+memory usage: 1.7+ MB
 None
 
 === 5 Baris Pertama ===
@@ -626,6 +657,8 @@ None
 2                             10946  
 3                             17247  
 4                              7883  
+
+✅ Kolom Status terdeteksi sebagai: &#39;Status&#39;
 
 === 10 Baris dengan Status = 200 ===
       Remote host Remote logname Remote user          Request time  \
@@ -664,9 +697,9 @@ None
 8                              1202  
 9                            269198  
 
-Jumlah total baris dengan Status = 200: 75718
+Jumlah total baris dengan Status = 200: 22359
 
-✅ File hasil filter disimpan sebagai &#39;filtered_status_200.csv&#39;
+✅ File hasil filter disimpan sebagai &#39;Data/filtered_status_200.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -682,53 +715,72 @@ Jumlah total baris dengan Status = 200: 75718
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_status_200.csv&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya (aman untuk CSV besar/log)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;Data/filtered_status_200.csv&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># 2️⃣ Tampilkan info awal</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom agar konsisten</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
-<span class="c1"># 3️⃣ Pastikan kolom &#39;Request method&#39; ada</span>
-<span class="k">if</span> <span class="s1">&#39;Request method&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request method&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Temukan kolom Request method yang benar</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;request method&quot;</span><span class="p">:</span>
+        <span class="n">target_col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-<span class="c1"># 4️⃣ Filter hanya baris dengan Request method = GET</span>
-<span class="n">get_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">target_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;Request method&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># 5️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom Request method terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Pastikan datanya string sebelum filter</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="c1"># 5️⃣ Filter hanya baris dengan Request method = GET</span>
+<span class="n">get_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+
+<span class="c1"># 6️⃣ Tampilkan hasil</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris dengan Request method = GET ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">get_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="c1"># 6️⃣ Hitung jumlah total baris hasil filter</span>
+<span class="c1"># 7️⃣ Hitung jumlah total baris hasil filter</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris dengan Request method = GET:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">get_df</span><span class="p">))</span>
 
-<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
-<span class="n">get_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_get_requests.csv&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># 8️⃣ Simpan hasil ke file baru</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span>
+<span class="n">get_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
 &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 75718 entries, 0 to 75717
+RangeIndex: 22359 entries, 0 to 22358
 Data columns (total 9 columns):
  #   Column                            Non-Null Count  Dtype 
 ---  ------                            --------------  ----- 
- 0   Remote host                       75718 non-null  object
- 1   Remote logname                    75718 non-null  object
- 2   Remote user                       75718 non-null  object
- 3   Request time                      75718 non-null  object
- 4   Request method                    75718 non-null  object
- 5   Request URI                       75718 non-null  object
- 6   Request Protocol                  75718 non-null  object
- 7   Status                            75718 non-null  int64 
- 8   Size of response (incl. headers)  75718 non-null  int64 
+ 0   Remote host                       22359 non-null  object
+ 1   Remote logname                    22359 non-null  object
+ 2   Remote user                       22359 non-null  object
+ 3   Request time                      22359 non-null  object
+ 4   Request method                    22359 non-null  object
+ 5   Request URI                       22359 non-null  object
+ 6   Request Protocol                  22359 non-null  object
+ 7   Status                            22359 non-null  int64 
+ 8   Size of response (incl. headers)  22359 non-null  int64 
 dtypes: int64(2), object(7)
-memory usage: 5.2+ MB
+memory usage: 1.5+ MB
 None
 
 === 5 Baris Pertama ===
@@ -752,6 +804,8 @@ None
 2                             10946  
 3                             17247  
 4                              7883  
+
+✅ Kolom Request method terdeteksi sebagai: &#39;Request method&#39;
 
 === 10 Baris dengan Request method = GET ===
       Remote host Remote logname Remote user          Request time  \
@@ -790,9 +844,9 @@ None
 8                              1202  
 9                            269198  
 
-Jumlah total baris dengan Request method = GET: 75656
+Jumlah total baris dengan Request method = GET: 22339
 
-✅ File hasil filter disimpan sebagai &#39;filtered_get_requests.csv&#39;
+✅ File hasil filter disimpan sebagai &#39;Data/filtered_get_requests.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -803,44 +857,62 @@ Jumlah total baris dengan Request method = GET: 75656
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
-<span class="c1"># ⏰ Ubah kolom Request Time menjadi format tanggal dan waktu saja</span>
+<span class="c1"># ⏰ Ubah kolom Request Time menjadi format tanggal &amp; waktu saja</span>
 <span class="c1"># ==========================================================</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># 2️⃣ Pastikan kolomnya benar</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom ===&quot;</span><span class="p">)</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-<span class="c1"># 3️⃣ Pastikan kolom &#39;Request time&#39; ada</span>
-<span class="k">if</span> <span class="s1">&#39;Request time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request time&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Temukan kolom yang benar-benar bernama &#39;Request time&#39;</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;request time&quot;</span><span class="p">:</span>
+        <span class="n">target_col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-<span class="c1"># 4️⃣ Konversi kolom &#39;Request time&#39; ke format datetime</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">target_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;Request time&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># 5️⃣ Ubah tampilannya jadi string format &#39;YYYY-MM-DD HH:MM:SS&#39;</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom Request time terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Konversi kolom ke datetime</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+<span class="c1"># 5️⃣ Format menjadi &#39;YYYY-MM-DD HH:MM:SS&#39;</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
 
 <span class="c1"># 6️⃣ Tampilkan hasil</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris Pertama Setelah Konversi ===&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="n">target_col</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="c1"># 7️⃣ Simpan ke file baru</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/converted_request_time.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;converted_request_time.csv&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;Data/converted_request_time.csv&quot;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom ===
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom Setelah Dirapikan ===
 Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &#39;Request time&#39;,
        &#39;Request method&#39;, &#39;Request URI&#39;, &#39;Request Protocol&#39;, &#39;Status&#39;,
        &#39;Size of response (incl. headers)&#39;],
       dtype=&#39;object&#39;)
+
+✅ Kolom Request time terdeteksi sebagai: &#39;Request time&#39;
 
 === 10 Baris Pertama Setelah Konversi ===
           Request time
@@ -855,7 +927,7 @@ Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &
 8  2009-10-15 02:02:56
 9  2009-10-15 02:02:55
 
-✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;converted_request_time.csv&#39;
+✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;Data/converted_request_time.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -871,32 +943,51 @@ Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1️⃣ Baca file hasil sebelumnya</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/converted_request_time.csv&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Baca file hasil sebelumnya (aman untuk CSV log)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;Data/converted_request_time.csv&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># 2️⃣ Tampilkan nama kolom untuk memastikan struktur</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom ===&quot;</span><span class="p">)</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-<span class="c1"># 3️⃣ Pastikan kolom yang dibutuhkan ada</span>
-<span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">,</span> <span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_cols</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kolom &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Temukan kolom Remote host &amp; Request Protocol secara aman</span>
+<span class="n">col_ip</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">col_protocol</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="c1"># 4️⃣ (Opsional) Tampilkan daftar unik untuk membantu memilih filter</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;remote host&quot;</span><span class="p">:</span>
+        <span class="n">col_ip</span> <span class="o">=</span> <span class="n">col</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;request protocol&quot;</span><span class="p">:</span>
+        <span class="n">col_protocol</span> <span class="o">=</span> <span class="n">col</span>
+
+<span class="k">if</span> <span class="n">col_ip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;Remote host&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">col_protocol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;Request Protocol&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom Remote host terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Kolom Request Protocol terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">col_protocol</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Tampilkan nilai unik (opsional, untuk membantu memilih filter)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Contoh Nilai Unik ===&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remote host unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="mi">5</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request Protocol unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remote host unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request Protocol unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col_protocol</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 
-<span class="c1"># 5️⃣ Tentukan nilai filter (bisa diganti sesuai kebutuhan)</span>
-<span class="n">target_ip</span> <span class="o">=</span> <span class="s1">&#39;66.249.139.233&#39;</span>         <span class="c1"># 🧩 contoh IP</span>
-<span class="n">target_protocol</span> <span class="o">=</span> <span class="s1">&#39;HTTP/1.1&#39;</span>         <span class="c1"># 🧩 contoh protokol</span>
+<span class="c1"># 5️⃣ Tentukan nilai filter (silakan ganti sesuai kebutuhan)</span>
+<span class="n">target_ip</span> <span class="o">=</span> <span class="s2">&quot;66.249.139.233&quot;</span>        <span class="c1"># contoh IP</span>
+<span class="n">target_protocol</span> <span class="o">=</span> <span class="s2">&quot;HTTP/1.1&quot;</span>        <span class="c1"># contoh protokol</span>
 
 <span class="c1"># 6️⃣ Lakukan filter</span>
 <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
-    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_ip</span><span class="p">)</span> <span class="o">&amp;</span>
-    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_protocol</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_ip</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_protocol</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_protocol</span><span class="p">)</span>
 <span class="p">]</span>
 
 <span class="c1"># 7️⃣ Tampilkan hasil</span>
@@ -907,17 +998,22 @@ Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total hasil filter:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">))</span>
 
 <span class="c1"># 9️⃣ Simpan hasil ke file baru</span>
-<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_ip_protocol.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Hasil filter disimpan sebagai &#39;filtered_ip_protocol.csv&#39;&quot;</span><span class="p">)</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;Data/filtered_ip_protocol.csv&quot;</span>
+<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Hasil filter disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom ===
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom Setelah Dirapikan ===
 Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &#39;Request time&#39;,
        &#39;Request method&#39;, &#39;Request URI&#39;, &#39;Request Protocol&#39;, &#39;Status&#39;,
        &#39;Size of response (incl. headers)&#39;],
       dtype=&#39;object&#39;)
+
+✅ Kolom Remote host terdeteksi sebagai: &#39;Remote host&#39;
+✅ Kolom Request Protocol terdeteksi sebagai: &#39;Request Protocol&#39;
 
 === Contoh Nilai Unik ===
 Remote host unik: [&#39;65.55.147.227&#39; &#39;65.55.86.34&#39; &#39;148.188.55.88&#39; &#39;66.249.139.233&#39;
@@ -936,7 +1032,7 @@ Request Protocol unik: [&#39;HTTP/1.1&#39; &#39;HTTP/1.0&#39;]
 
 Jumlah total hasil filter: 1
 
-✅ Hasil filter disimpan sebagai &#39;filtered_ip_protocol.csv&#39;
+✅ Hasil filter disimpan sebagai &#39;Data/filtered_ip_protocol.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -954,87 +1050,98 @@ Jumlah total hasil filter: 1
 <span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/data_nasa.csv&quot;</span>
 
-<span class="c1"># 1. Muat dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; karena file Anda menggunakan titik koma</span>
-<span class="c1"># DIUBAH: Tambahkan index_col=0 karena kolom pertama adalah indeks</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c1"># 2. Tampilkan info untuk konfirmasi (opsional)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Info data asli:&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Muat dataset NASA yang memakai separator &#39;;&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+    <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>  <span class="c1"># aman untuk baris rusak</span>
+<span class="p">)</span>
+
+<span class="c1"># 2️⃣ Rapikan nama kolom (hilangkan spasi &amp; kutip)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Info Data Asli ===&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 
-<span class="c1"># 3. Tampilkan beberapa baris pertama data asli (opsional)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data asli (head):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
-<span class="c1"># 4. Tentukan kolom target</span>
-<span class="c1"># DIUBAH: Kita mencari .html di kolom &#39;url&#39;, bukan &#39;host&#39;</span>
-<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;url&quot;</span>
+<span class="c1"># 3️⃣ Tentukan kolom target (otomatis deteksi kolom &#39;url&#39;)</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span>
+        <span class="n">target_column</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-<span class="c1"># 5. Periksa apakah kolom target ada</span>
-<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># 6. Filter baris</span>
-    <span class="c1">#    Logika ini sekarang akan diterapkan pada kolom &#39;url&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; diakhiri dengan &#39;.html&#39;...&quot;</span><span class="p">)</span>
-    <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;url&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="c1"># 7. Simpan data yang telah difilter ke file CSV baru</span>
-    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
-    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; saat menyimpan agar konsisten</span>
-    <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom URL terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-    <span class="c1"># 8. Cetak pesan sukses dan pratinjau data yang telah difilter</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1"># 4️⃣ Filter: URL yang berakhiran .html (case-insensitive)</span>
+<span class="c1">#    Termasuk kasus: index.html?ref=abc → tetap dihitung</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span>
+                 <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.html($|\?)&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+
+<span class="c1"># 5️⃣ Simpan hasil ke CSV baru</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
+<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Berhasil menyimpan hasil filter ke: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Pratinjau Data yang Difilter ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/data_nasa.csv...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/1326816150.py:10: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(file_name, sep=&#39;;&#39;, index_col=0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Info data asli:
+
+=== Info Data Asli ===
 &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Index: 1048575 entries, 0 to 1048574
+Index: 281729 entries, 0 to 281728
 Data columns (total 6 columns):
- #   Column    Non-Null Count    Dtype 
----  ------    --------------    ----- 
- 0   host      1048575 non-null  object
- 1   time      1048575 non-null  int64 
- 2   method    1048575 non-null  object
- 3   url       1048575 non-null  object
- 4   response  1048575 non-null  int64 
- 5   bytes     1048575 non-null  int64 
-dtypes: int64(3), object(3)
-memory usage: 56.0+ MB
+ #   Column    Non-Null Count   Dtype  
+---  ------    --------------   -----  
+ 0   host      281729 non-null  object 
+ 1   time      281729 non-null  int64  
+ 2   method    281729 non-null  object 
+ 3   url       281729 non-null  object 
+ 4   response  281728 non-null  float64
+ 5   bytes     281728 non-null  float64
+dtypes: float64(2), int64(1), object(3)
+memory usage: 15.0+ MB
 
-Data asli (head):
+=== 5 Baris Pertama ===
           host       time method                           url  response  \
-0  ***.novo.dk  805465029    GET                     /ksc.html       200   
-1  ***.novo.dk  805465031    GET    /images/ksclogo-medium.gif       200   
-2  ***.novo.dk  805465051    GET  /images/MOSAIC-logosmall.gif       200   
-3  ***.novo.dk  805465053    GET     /images/USA-logosmall.gif       200   
-4  ***.novo.dk  805465054    GET    /images/NASA-logosmall.gif       200   
+0  ***.novo.dk  805465029    GET                     /ksc.html     200.0   
+1  ***.novo.dk  805465031    GET    /images/ksclogo-medium.gif     200.0   
+2  ***.novo.dk  805465051    GET  /images/MOSAIC-logosmall.gif     200.0   
+3  ***.novo.dk  805465053    GET     /images/USA-logosmall.gif     200.0   
+4  ***.novo.dk  805465054    GET    /images/NASA-logosmall.gif     200.0   
 
-   bytes  
-0   7067  
-1   5866  
-2    363  
-3    234  
-4    786  
+    bytes  
+0  7067.0  
+1  5866.0  
+2   363.0  
+3   234.0  
+4   786.0  
 
-Memfilter data untuk baris di mana &#39;url&#39; diakhiri dengan &#39;.html&#39;...
+✅ Kolom URL terdeteksi sebagai: &#39;url&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1886/195498982.py:42: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  .str.contains(r&#39;\.html($|\?)&#39;, case=False, regex=True)]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Berhasil menyimpan hasil filter ke: Data/html_requests_only_NASA.csv
 
-Berhasil memfilter data dan menyimpannya ke Data/html_requests_only_NASA.csv.
-Pratinjau data yang telah difilter:
+=== Pratinjau Data yang Difilter ===
            host       time method  \
 0   ***.novo.dk  805465029    GET   
 6   ***.novo.dk  805465068    GET   
@@ -1042,12 +1149,12 @@ Pratinjau data yang telah difilter:
 13  ***.novo.dk  807951768    GET   
 23  ***.novo.dk  807951938    GET   
 
-                                             url  response  bytes  
-0                                      /ksc.html       200   7067  
-6                /shuttle/missions/missions.html       200   8678  
-12     /shuttle/resources/orbiters/columbia.html       200   6922  
-13  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
-23               /shuttle/countdown/liftoff.html       200   4665  
+                                             url  response    bytes  
+0                                      /ksc.html     200.0   7067.0  
+6                /shuttle/missions/missions.html     200.0   8678.0  
+12     /shuttle/resources/orbiters/columbia.html     200.0   6922.0  
+13  /shuttle/missions/sts-69/mission-sts-69.html     200.0  11264.0  
+23               /shuttle/countdown/liftoff.html     200.0   4665.0  
 </pre></div>
 </div>
 </div>
@@ -1059,42 +1166,54 @@ Pratinjau data yang telah difilter:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># Nama file input (file dari langkah sebelumnya)</span>
+<span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
 
-<span class="c1"># 1. Muat dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
 
-<span class="c1"># 2. Tentukan kolom target</span>
-<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;response&quot;</span>
+<span class="c1"># 1️⃣ Muat dataset NASA (separator ; wajib)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># 3. Periksa apakah kolom target ada</span>
-<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># 4. Periksa apakah kolomnya numerik (sekarang seharusnya berhasil)</span>
-    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]):</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom (hapus spasi &amp; kutip)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
-        <span class="c1"># 5. Filter baris di mana &#39;response&#39; sama dengan 200</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; adalah 200...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-        <span class="c1"># Ini adalah baris filter utama (logika Anda sudah benar)</span>
-        <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># 3️⃣ Temukan kolom &#39;response&#39; secara aman</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;response&quot;</span><span class="p">:</span>
+        <span class="n">target_column</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-        <span class="c1"># 6. Simpan data yang telah difilter ke file CSV baru</span>
-        <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
-        <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten saat menyimpan</span>
-        <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;response&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># 7. Cetak pesan sukses dan pratinjau data</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># (Jika sep=&#39;;&#39; lupa ditambahkan, Anda mungkin akan melihat error ini)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; bukan numerik. Periksa pemisah file CSV.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom response terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Pastikan kolom adalah numerik (convert otomatis)</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+<span class="c1"># 5️⃣ Filter baris dengan response = 200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter baris dengan &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; = 200...&quot;</span><span class="p">)</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># 6️⃣ Simpan hasil ke file baru</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
+<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Berhasil disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 7️⃣ Tampilkan pratinjau</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Pratinjau Data Hasil Filter ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1102,27 +1221,31 @@ Pratinjau data yang telah difilter:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/html_requests_only_NASA.csv...
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/4048228294.py:9: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(file_name, sep=&#39;;&#39;)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memfilter data untuk baris di mana &#39;response&#39; adalah 200...
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom Setelah Dirapikan ===
+Index([&#39;Unnamed: 0&#39;, &#39;host&#39;, &#39;time&#39;, &#39;method&#39;, &#39;url&#39;, &#39;response&#39;, &#39;bytes&#39;], dtype=&#39;object&#39;)
 
-Berhasil memfilter data dan menyimpannya ke Data/status_200_only_NASA.csv.
-Pratinjau data yang telah difilter:
-  Unnamed: 0         host       time method  \
-0          0  ***.novo.dk  805465029    GET   
-1          6  ***.novo.dk  805465068    GET   
-2         12  ***.novo.dk  805465381    GET   
-3         13  ***.novo.dk  807951768    GET   
-4         23  ***.novo.dk  807951938    GET   
+✅ Kolom response terdeteksi sebagai: &#39;response&#39;
 
-                                            url  response  bytes  
-0                                     /ksc.html       200   7067  
-1               /shuttle/missions/missions.html       200   8678  
-2     /shuttle/resources/orbiters/columbia.html       200   6922  
-3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
-4               /shuttle/countdown/liftoff.html       200   4665  
+Memfilter baris dengan &#39;response&#39; = 200...
+
+✅ Berhasil disimpan sebagai &#39;Data/status_200_only_NASA.csv&#39;
+
+=== Pratinjau Data Hasil Filter ===
+   Unnamed: 0         host       time method  \
+0           0  ***.novo.dk  805465029    GET   
+1           6  ***.novo.dk  805465068    GET   
+2          12  ***.novo.dk  805465381    GET   
+3          13  ***.novo.dk  807951768    GET   
+4          23  ***.novo.dk  807951938    GET   
+
+                                            url  response    bytes  
+0                                     /ksc.html     200.0   7067.0  
+1               /shuttle/missions/missions.html     200.0   8678.0  
+2     /shuttle/resources/orbiters/columbia.html     200.0   6922.0  
+3  /shuttle/missions/sts-69/mission-sts-69.html     200.0  11264.0  
+4               /shuttle/countdown/liftoff.html     200.0   4665.0  
+
+Jumlah total baris: 53898
 </pre></div>
 </div>
 </div>
@@ -1134,64 +1257,87 @@ Pratinjau data yang telah difilter:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># Nama file input (file dari langkah sebelumnya)</span>
+<span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
 <span class="n">filter_value</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span>
-<span class="c1"># DIUBAH: Nama kolom yang benar adalah &#39;method&#39;, bukan &#39;Request method&#39;</span>
-<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;method&quot;</span>
 
-<span class="c1"># 1. Muat dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
 
-<span class="c1"># 2. Periksa apakah kolom target ada</span>
-<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># 3. Filter baris di mana &#39;method&#39; sama dengan &#39;GET&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; adalah &#39;</span><span class="si">{</span><span class="n">filter_value</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Muat dataset NASA (pakai ; dan parser aman)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-    <span class="c1"># Ini adalah baris filter utama (Logika Anda sudah benar)</span>
-    <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_value</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom (hapus spasi &amp; tanda kutip)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
-    <span class="c1"># 4. Simpan data yang telah difilter ke file CSV baru</span>
-    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
-    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten saat menyimpan</span>
-    <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="c1"># 5. Cetak pesan sukses dan pratinjau data (opsional)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1"># 3️⃣ Temukan kolom &#39;method&#39; secara aman</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span>
+        <span class="n">target_column</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
+
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;method&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom method terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Ubah kolom method ke uppercase agar filter lebih stabil</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+<span class="c1"># 5️⃣ Filter baris method = GET</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; adalah &#39;</span><span class="si">{</span><span class="n">filter_value</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_value</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># 6️⃣ Simpan hasil ke file baru</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
+<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Berhasil disimpan sebagai &#39;</span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 7️⃣ Tampilkan pratinjau</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Pratinjau Data Hasil Filter ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris hasil filter: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/status_200_only_NASA.csv...
 
-Memfilter data untuk baris di mana &#39;method&#39; adalah &#39;GET&#39;...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/3866659207.py:12: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(file_name, sep=&#39;;&#39;)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berhasil memfilter data dan menyimpannya ke Data/method_get_only_NASA.csv.
-Pratinjau data yang telah difilter:
-  Unnamed: 0         host       time method  \
-0          0  ***.novo.dk  805465029    GET   
-1          6  ***.novo.dk  805465068    GET   
-2         12  ***.novo.dk  805465381    GET   
-3         13  ***.novo.dk  807951768    GET   
-4         23  ***.novo.dk  807951938    GET   
+=== Nama Kolom Setelah Dirapikan ===
+Index([&#39;Unnamed: 0&#39;, &#39;host&#39;, &#39;time&#39;, &#39;method&#39;, &#39;url&#39;, &#39;response&#39;, &#39;bytes&#39;], dtype=&#39;object&#39;)
 
-                                            url  response  bytes  
-0                                     /ksc.html       200   7067  
-1               /shuttle/missions/missions.html       200   8678  
-2     /shuttle/resources/orbiters/columbia.html       200   6922  
-3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
-4               /shuttle/countdown/liftoff.html       200   4665  
+✅ Kolom method terdeteksi sebagai: &#39;method&#39;
+
+Memfilter baris di mana &#39;method&#39; adalah &#39;GET&#39;...
+
+✅ Berhasil disimpan sebagai &#39;Data/method_get_only_NASA.csv&#39;
+
+=== Pratinjau Data Hasil Filter ===
+   Unnamed: 0         host       time method  \
+0           0  ***.novo.dk  805465029    GET   
+1           6  ***.novo.dk  805465068    GET   
+2          12  ***.novo.dk  805465381    GET   
+3          13  ***.novo.dk  807951768    GET   
+4          23  ***.novo.dk  807951938    GET   
+
+                                            url  response    bytes  
+0                                     /ksc.html     200.0   7067.0  
+1               /shuttle/missions/missions.html     200.0   8678.0  
+2     /shuttle/resources/orbiters/columbia.html     200.0   6922.0  
+3  /shuttle/missions/sts-69/mission-sts-69.html     200.0  11264.0  
+4               /shuttle/countdown/liftoff.html     200.0   4665.0  
+
+Jumlah total baris hasil filter: 53682
 </pre></div>
 </div>
 </div>
@@ -1203,76 +1349,82 @@ Pratinjau data yang telah difilter:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># DIUBAH: Nama file input yang benar</span>
+<span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
-<span class="c1"># DIUBAH: Nama kolom target yang benar</span>
-<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span>
 
-<span class="c1"># 1. Muat dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
 
-<span class="c1"># 2. Periksa apakah kolom target ada</span>
-<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># 3. Tampilkan contoh format asli (ini adalah Angka/Timestamp)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Format asli (baris pertama): </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 1️⃣ Muat dataset NASA</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span>
+<span class="p">)</span>
 
-    <span class="c1"># 4. Lakukan transformasi:</span>
-    <span class="c1">#    Kita tidak mengganti &#39;T&#39; atau &#39;Z&#39; karena data aslinya adalah angka (Unix timestamp).</span>
-    <span class="c1">#    Kita akan MENGONVERSI timestamp itu ke format datetime yang mudah dibaca.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengonversi kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; (Unix timestamp) ke format Datetime...&quot;</span><span class="p">)</span>
+<span class="c1"># 2️⃣ Rapikan nama kolom (hilangkan spasi, kutip, dll)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
-    <span class="c1"># pd.to_datetime mengonversi angka timestamp (unit=&#39;s&#39; berarti &#39;seconds&#39;)</span>
-    <span class="c1"># Kita buat kolom baru &#39;datetime_readable&#39; agar data asli tidak hilang</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime_readable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="c1"># 5. Simpan data yang telah diubah ke file CSV baru</span>
-    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
-    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="c1"># 3️⃣ Temukan kolom &#39;time&#39; otomatis (case-insensitive)</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;time&quot;</span><span class="p">:</span>
+        <span class="n">target_column</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">break</span>
 
-    <span class="c1"># 6. Cetak pesan sukses dan pratinjau</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil mengonversi data waktu dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah diubah (lihat kolom baru &#39;datetime_readable&#39;):&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;time&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom time terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Tampilkan contoh format asli</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Format asli (baris pertama): </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 5️⃣ Konversi kolom timestamp ke datetime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mengonversi Unix timestamp ke datetime...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pastikan kolom bisa dikonversi ke numerik</span>
+<span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+<span class="c1"># Buat kolom baru yang readable</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;datetime_readable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+<span class="c1"># 6️⃣ Simpan hasilnya</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Berhasil mengonversi waktu dan menyimpannya ke &#39;</span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 7️⃣ Pratinjau hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Pratinjau Data Setelah Konversi ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="n">target_column</span><span class="p">,</span> <span class="s2">&quot;datetime_readable&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/method_get_only_NASA.csv...
+
+=== Nama Kolom Setelah Dirapikan ===
+Index([&#39;Unnamed: 0&#39;, &#39;host&#39;, &#39;time&#39;, &#39;method&#39;, &#39;url&#39;, &#39;response&#39;, &#39;bytes&#39;], dtype=&#39;object&#39;)
+
+✅ Kolom time terdeteksi sebagai: &#39;time&#39;
+
 Format asli (baris pertama): 805465029
-Mengonversi kolom &#39;time&#39; (Unix timestamp) ke format Datetime...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/1638672458.py:11: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(file_name, sep=&#39;;&#39;)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berhasil mengonversi data waktu dan menyimpannya ke Data/time_converted_NASA.csv.
-Pratinjau data yang telah diubah (lihat kolom baru &#39;datetime_readable&#39;):
-  Unnamed: 0         host       time method  \
-0          0  ***.novo.dk  805465029    GET   
-1          6  ***.novo.dk  805465068    GET   
-2         12  ***.novo.dk  805465381    GET   
-3         13  ***.novo.dk  807951768    GET   
-4         23  ***.novo.dk  807951938    GET   
 
-                                            url  response  bytes  \
-0                                     /ksc.html       200   7067   
-1               /shuttle/missions/missions.html       200   8678   
-2     /shuttle/resources/orbiters/columbia.html       200   6922   
-3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264   
-4               /shuttle/countdown/liftoff.html       200   4665   
+Mengonversi Unix timestamp ke datetime...
 
-    datetime_readable  
-0 1995-07-11 12:17:09  
-1 1995-07-11 12:17:48  
-2 1995-07-11 12:23:01  
-3 1995-08-09 07:02:48  
-4 1995-08-09 07:05:38  
+✅ Berhasil mengonversi waktu dan menyimpannya ke &#39;Data/time_converted_NASA.csv&#39;
+
+=== Pratinjau Data Setelah Konversi ===
+        time   datetime_readable
+0  805465029 1995-07-11 12:17:09
+1  805465068 1995-07-11 12:17:48
+2  805465381 1995-07-11 12:23:01
+3  807951768 1995-08-09 07:02:48
+4  807951938 1995-08-09 07:05:38
 </pre></div>
 </div>
 </div>
@@ -1284,85 +1436,96 @@ Pratinjau data yang telah diubah (lihat kolom baru &#39;datetime_readable&#39;):
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1. Tentukan file input (file yang memiliki &#39;datetime_readable&#39;)</span>
+<span class="c1"># 1️⃣ File input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
 
-<span class="c1"># 2. Tentukan kolom-kolom yang akan kita gunakan</span>
-<span class="n">col_ip</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span>               <span class="c1"># Kolom untuk mengelompokkan sesi</span>
-<span class="n">col_time</span> <span class="o">=</span> <span class="s2">&quot;datetime_readable&quot;</span> <span class="c1"># Kolom untuk mengurutkan sesi</span>
-<span class="n">new_col_name</span> <span class="o">=</span> <span class="s2">&quot;SESSION&quot;</span>      <span class="c1"># Nama kolom sesi baru</span>
+<span class="c1"># Nama kolom target yang ingin digunakan</span>
+<span class="n">col_ip_raw</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span>               
+<span class="n">col_time_raw</span> <span class="o">=</span> <span class="s2">&quot;datetime_readable&quot;</span>
+<span class="n">new_col_name</span> <span class="o">=</span> <span class="s2">&quot;SESSION&quot;</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="c1"># 3. Muat dataset</span>
-    <span class="c1"># PENTING: Kita gunakan parse_dates=[col_time]</span>
-    <span class="c1"># agar pandas langsung membacanya sebagai objek datetime</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">col_time</span><span class="p">])</span>
-<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> tidak ditemukan.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pastikan Anda sudah menjalankan skrip konversi &#39;time&#39; sebelumnya.&quot;</span><span class="p">)</span>
-    <span class="n">exit</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error saat membaca </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">. Cek kolom &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detail: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">exit</span><span class="p">()</span>
 
+<span class="c1"># 2️⃣ Load CSV NASA dengan separator &#39;;&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span><span class="p">,</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">col_time_raw</span><span class="p">]</span>  <span class="c1"># otomatis parse datetime</span>
+<span class="p">)</span>
 
-<span class="c1"># 4. Periksa apakah kolom yang diperlukan ada</span>
-<span class="k">if</span> <span class="n">col_ip</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">col_time</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<span class="c1"># 3️⃣ Rapikan nama kolom</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
-    <span class="c1"># 5. BUAT KOLOM SESSION (Logika yang sama seperti sebelumnya)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Membuat kolom &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; berdasarkan &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; unik...&quot;</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Nama Kolom Setelah Dirapikan ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="c1"># 6. Urutkan data berdasarkan SESSION, lalu WAKTU</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengurutkan data berdasarkan &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; dan &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
-    <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_time</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># 4️⃣ Temukan kolom host dan time secara aman (case-insensitive)</span>
+<span class="n">col_ip</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">col_time</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="c1"># 7. Hapus kolom &#39;time&#39; (timestamp angka) yang asli agar rapi</span>
-    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Menghapus kolom &#39;time&#39; (timestamp unix) asli...&quot;</span><span class="p">)</span>
-        <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">col_ip_raw</span><span class="p">:</span>
+        <span class="n">col_ip</span> <span class="o">=</span> <span class="n">col</span>
+    <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">col_time_raw</span><span class="p">:</span>
+        <span class="n">col_time</span> <span class="o">=</span> <span class="n">col</span>
 
-    <span class="c1"># 8. Simpan DataFrame LENGKAP yang sudah diurutkan</span>
-    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/session_data_full_NASA.csv&quot;</span>
+<span class="k">if</span> <span class="n">col_ip</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">col_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Kolom &#39;</span><span class="si">{</span><span class="n">col_ip_raw</span><span class="si">}</span><span class="s2">&#39; atau &#39;</span><span class="si">{</span><span class="n">col_time_raw</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan! Kolom tersedia: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="c1"># --- INI YANG DIUBAH ---</span>
-    <span class="c1"># Kita ubah sep=&#39;;&#39; (titik-koma) menjadi sep=&#39;,&#39; (koma)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Menyimpan data ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2"> dengan pemisah KOMA (&#39;,&#39;)...&quot;</span><span class="p">)</span>
-    <span class="n">df_sorted</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-    <span class="c1"># -------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom IP   terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Kolom Time terdeteksi sebagai: &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil! Kolom &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; telah ditambahkan.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File baru disimpan sebagai: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pratinjau data baru (menampilkan kolom yang Anda minta):&quot;</span><span class="p">)</span>
+<span class="c1"># 5️⃣ Buat kolom SESSION berdasarkan host</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Membuat kolom SESSION berdasarkan host unik...&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span>
 
-    <span class="c1"># Tampilkan pratinjau hanya dengan kolom yang diminta agar mudah dilihat</span>
-    <span class="n">preview_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_ip</span><span class="p">,</span> <span class="n">col_time</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">preview_cols</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1"># 6️⃣ Urutkan berdasarkan SESSION dan waktu</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengurutkan data berdasarkan SESSION dan datetime...&quot;</span><span class="p">)</span>
+<span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_time</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; atau &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="c1"># 7️⃣ Hapus kolom time (timestamp unix) jika ada</span>
+<span class="k">if</span> <span class="s2">&quot;time&quot;</span> <span class="ow">in</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Menghapus kolom &#39;time&#39; (timestamp asli)...&quot;</span><span class="p">)</span>
+    <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+
+<span class="c1"># 8️⃣ Simpan ke CSV baru (pemisah koma sesuai permintaan)</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/session_data_full_NASA.csv&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Menyimpan data ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2"> dengan pemisah koma &#39;,&#39;...&quot;</span><span class="p">)</span>
+<span class="n">df_sorted</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Berhasil! Kolom SESSION telah ditambahkan.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;➡ File baru disimpan sebagai: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 9️⃣ Pratinjau hasil</span>
+<span class="n">preview_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_ip</span><span class="p">,</span> <span class="n">col_time</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;url&quot;</span> <span class="ow">in</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_ip</span><span class="p">,</span> <span class="n">col_time</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Pratinjau Data Baru ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">preview_cols</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/time_converted_NASA.csv...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/295056162.py:16: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(file_name, sep=&#39;;&#39;, parse_dates=[col_time])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Membuat kolom &#39;SESSION&#39; berdasarkan &#39;host&#39; unik...
-Mengurutkan data berdasarkan &#39;SESSION&#39; dan &#39;datetime_readable&#39;...
-Menghapus kolom &#39;time&#39; (timestamp unix) asli...
-Menyimpan data ke Data/session_data_full_NASA.csv dengan pemisah KOMA (&#39;,&#39;)...
 
-Berhasil! Kolom &#39;SESSION&#39; telah ditambahkan.
-File baru disimpan sebagai: Data/session_data_full_NASA.csv
+=== Nama Kolom Setelah Dirapikan ===
+Index([&#39;Unnamed: 0&#39;, &#39;host&#39;, &#39;time&#39;, &#39;method&#39;, &#39;url&#39;, &#39;response&#39;, &#39;bytes&#39;,
+       &#39;datetime_readable&#39;],
+      dtype=&#39;object&#39;)
 
-Pratinjau data baru (menampilkan kolom yang Anda minta):
+✅ Kolom IP   terdeteksi sebagai: &#39;host&#39;
+✅ Kolom Time terdeteksi sebagai: &#39;datetime_readable&#39;
+
+Membuat kolom SESSION berdasarkan host unik...
+Mengurutkan data berdasarkan SESSION dan datetime...
+Menghapus kolom &#39;time&#39; (timestamp asli)...
+
+Menyimpan data ke Data/session_data_full_NASA.csv dengan pemisah koma &#39;,&#39;...
+
+✅ Berhasil! Kolom SESSION telah ditambahkan.
+➡ File baru disimpan sebagai: Data/session_data_full_NASA.csv
+
+=== Pratinjau Data Baru ===
    SESSION         host   datetime_readable  \
 0        1  ***.novo.dk 1995-07-11 12:17:09   
 1        1  ***.novo.dk 1995-07-11 12:17:48   
@@ -1581,7 +1744,7 @@ By Narendra Wardianto
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2025.
       <br/>
     
   </p>
