@@ -1,11 +1,3 @@
-# Welcome to your Jupyter Book
+# Introduction
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
-
-Check out the content pages bundled with this sample book to see more.
-
-```{tableofcontents}
-```
+Let me introduce my self, my name is Narendra Wardianto. I'm from Surabaya. Curently i'm studying at Trunojoyo Madura University, majoring in Informatics Engineering and i have student ID number of 220411100078. I'm also have an active email address, namely wardiantonarendra606@gmail.com or 220411100078@student.trunojoyo.ac.id

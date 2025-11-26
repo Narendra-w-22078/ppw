@@ -1,0 +1,1583 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Web Usage &#8212; PPW</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'webusage';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PPW</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Pengantar Web Mining</a></li>
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fwebusage.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/webusage.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Web Usage</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Web Usage</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-html">Filter request html</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-status-mengambil-nilai-yg-200">Filter status mengambil nilai yg 200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-method-mengambil-yang-get">Filter request method mengambil yang GET</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-request-time-menjadi-tanggal-dan-waktunya-saja">Merubah Request Time menjadi tanggal dan waktunya saja</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-berdasarkan-ip-address-remote-host-dan-user-agent-request-protocol">Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-nasa">Dataset NASA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-link-web-html">Filter Link Web HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Filter status mengambil nilai yg 200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-method-mengambil-yg-get">Filter Request Method mengambil yg GET</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Merubah Request Time menjadi tanggal dan waktunya saja</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="web-usage">
+<h1>Web Usage<a class="headerlink" href="#web-usage" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /home/codespace/.python/current/lib/python3.12/site-packages (2.3.3)
+Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.python/current/lib/python3.12/site-packages (from pandas) (1.26.4)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2025.2)
+Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="filter-request-html">
+<h2>Filter request html<a class="headerlink" href="#filter-request-html" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># 📦 Filter Request URI yang Mengandung .html</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1️⃣ Baca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/webusage.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2️⃣ Info &amp; contoh data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 3️⃣ Pastikan kolom ada</span>
+<span class="k">if</span> <span class="s1">&#39;Request URI&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request URI&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Filter URL yang mengandung &#39;.html&#39;</span>
+<span class="n">html_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request URI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.html&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+
+<span class="c1"># 5️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Request URI yang Mengandung .html ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">html_df</span><span class="p">[</span><span class="s1">&#39;Request URI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 6️⃣ Hitung total baris hasil filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total URI yang mengandung .html:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">html_df</span><span class="p">))</span>
+
+<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
+<span class="n">html_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;filtered_html_requests.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_html_requests.csv&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 132258 entries, 0 to 132257
+Data columns (total 9 columns):
+ #   Column                            Non-Null Count   Dtype 
+---  ------                            --------------   ----- 
+ 0   Remote host                       132258 non-null  object
+ 1   Remote logname                    132258 non-null  object
+ 2   Remote user                       132258 non-null  object
+ 3   Request time                      132258 non-null  object
+ 4   Request method                    132258 non-null  object
+ 5   Request URI                       132258 non-null  object
+ 6   Request Protocol                  132258 non-null  object
+ 7   Status                            132258 non-null  int64 
+ 8   Size of response (incl. headers)  132258 non-null  int64 
+dtypes: int64(2), object(7)
+memory usage: 9.1+ MB
+None
+
+=== 5 Baris Pertama ===
+      Remote host Remote logname Remote user          Request time  \
+0   65.55.147.227              -           -  2009-10-15T02:00:24Z   
+1     65.55.86.34              -           -  2009-10-15T02:00:58Z   
+2   148.188.55.88              -           -  2009-10-15T02:01:41Z   
+3    72.30.57.238              -           -  2009-10-15T02:01:59Z   
+4  66.249.139.233              -           -  2009-10-15T02:02:09Z   
+
+  Request method      Request URI Request Protocol  Status  \
+0            GET      /index.html         HTTP/1.1     200   
+1            GET      /index.html         HTTP/1.1     200   
+2            GET        /faq.html         HTTP/1.1     200   
+3            GET  /contribute.txt         HTTP/1.0     200   
+4            GET        /faq.html         HTTP/1.1     200   
+
+   Size of response (incl. headers)  
+0                             21878  
+1                              1416  
+2                             10946  
+3                             39943  
+4                             17247  
+
+=== 10 Request URI yang Mengandung .html ===
+0     /index.html
+1     /index.html
+2       /faq.html
+4       /faq.html
+5     /index.html
+8     /index.html
+9     /index.html
+10      /faq.html
+11    /index.html
+12      /faq.html
+Name: Request URI, dtype: object
+
+Jumlah total URI yang mengandung .html: 79176
+
+✅ File hasil filter disimpan sebagai &#39;filtered_html_requests.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-status-mengambil-nilai-yg-200">
+<h2>Filter status mengambil nilai yg 200<a class="headerlink" href="#filter-status-mengambil-nilai-yg-200" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># 📦 Filter Status = 200 dari file filtered_html_requests.csv</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_html_requests.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2️⃣ Tampilkan informasi awal</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 3️⃣ Pastikan kolom &#39;Status&#39; ada</span>
+<span class="k">if</span> <span class="s1">&#39;Status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Status&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Filter hanya yang Status = 200</span>
+<span class="n">status_200</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span>
+
+<span class="c1"># 5️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris dengan Status = 200 ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">status_200</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 6️⃣ Hitung jumlah total baris hasil filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris dengan Status = 200:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">status_200</span><span class="p">))</span>
+
+<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
+<span class="n">status_200</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_status_200.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_status_200.csv&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 79176 entries, 0 to 79175
+Data columns (total 9 columns):
+ #   Column                            Non-Null Count  Dtype 
+---  ------                            --------------  ----- 
+ 0   Remote host                       79176 non-null  object
+ 1   Remote logname                    79176 non-null  object
+ 2   Remote user                       79176 non-null  object
+ 3   Request time                      79176 non-null  object
+ 4   Request method                    79176 non-null  object
+ 5   Request URI                       79176 non-null  object
+ 6   Request Protocol                  79176 non-null  object
+ 7   Status                            79176 non-null  int64 
+ 8   Size of response (incl. headers)  79176 non-null  int64 
+dtypes: int64(2), object(7)
+memory usage: 5.4+ MB
+None
+
+=== 5 Baris Pertama ===
+      Remote host Remote logname Remote user          Request time  \
+0   65.55.147.227              -           -  2009-10-15T02:00:24Z   
+1     65.55.86.34              -           -  2009-10-15T02:00:58Z   
+2   148.188.55.88              -           -  2009-10-15T02:01:41Z   
+3  66.249.139.233              -           -  2009-10-15T02:02:09Z   
+4    72.30.50.248              -           -  2009-10-15T02:02:13Z   
+
+  Request method  Request URI Request Protocol  Status  \
+0            GET  /index.html         HTTP/1.1     200   
+1            GET  /index.html         HTTP/1.1     200   
+2            GET    /faq.html         HTTP/1.1     200   
+3            GET    /faq.html         HTTP/1.1     200   
+4            GET  /index.html         HTTP/1.0     200   
+
+   Size of response (incl. headers)  
+0                             21878  
+1                              1416  
+2                             10946  
+3                             17247  
+4                              7883  
+
+=== 10 Baris dengan Status = 200 ===
+      Remote host Remote logname Remote user          Request time  \
+0   65.55.147.227              -           -  2009-10-15T02:00:24Z   
+1     65.55.86.34              -           -  2009-10-15T02:00:58Z   
+2   148.188.55.88              -           -  2009-10-15T02:01:41Z   
+3  66.249.139.233              -           -  2009-10-15T02:02:09Z   
+4    72.30.50.248              -           -  2009-10-15T02:02:13Z   
+5     65.55.80.97              -           -  2009-10-15T02:02:51Z   
+6    65.55.161.41              -           -  2009-10-15T02:02:54Z   
+7   65.55.119.204              -           -  2009-10-15T02:02:55Z   
+8    65.55.58.168              -           -  2009-10-15T02:02:56Z   
+9     65.55.35.29              -           -  2009-10-15T02:02:55Z   
+
+  Request method  Request URI Request Protocol  Status  \
+0            GET  /index.html         HTTP/1.1     200   
+1            GET  /index.html         HTTP/1.1     200   
+2            GET    /faq.html         HTTP/1.1     200   
+3            GET    /faq.html         HTTP/1.1     200   
+4            GET  /index.html         HTTP/1.0     200   
+5            GET  /index.html         HTTP/1.1     200   
+6            GET  /index.html         HTTP/1.1     200   
+7            GET    /faq.html         HTTP/1.1     200   
+8            GET  /index.html         HTTP/1.1     200   
+9            GET    /faq.html         HTTP/1.1     200   
+
+   Size of response (incl. headers)  
+0                             21878  
+1                              1416  
+2                             10946  
+3                             17247  
+4                              7883  
+5                              1416  
+6                             37122  
+7                             64380  
+8                              1202  
+9                            269198  
+
+Jumlah total baris dengan Status = 200: 75718
+
+✅ File hasil filter disimpan sebagai &#39;filtered_status_200.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-request-method-mengambil-yang-get">
+<h2>Filter request method mengambil yang GET<a class="headerlink" href="#filter-request-method-mengambil-yang-get" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># 📦 Filter Request method = GET dari file filtered_status_200.csv</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_status_200.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2️⃣ Tampilkan info awal</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Baris Pertama ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 3️⃣ Pastikan kolom &#39;Request method&#39; ada</span>
+<span class="k">if</span> <span class="s1">&#39;Request method&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request method&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Filter hanya baris dengan Request method = GET</span>
+<span class="n">get_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">]</span>
+
+<span class="c1"># 5️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris dengan Request method = GET ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 6️⃣ Hitung jumlah total baris hasil filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total baris dengan Request method = GET:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">get_df</span><span class="p">))</span>
+
+<span class="c1"># 7️⃣ Simpan hasil ke file baru</span>
+<span class="n">get_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ File hasil filter disimpan sebagai &#39;filtered_get_requests.csv&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 75718 entries, 0 to 75717
+Data columns (total 9 columns):
+ #   Column                            Non-Null Count  Dtype 
+---  ------                            --------------  ----- 
+ 0   Remote host                       75718 non-null  object
+ 1   Remote logname                    75718 non-null  object
+ 2   Remote user                       75718 non-null  object
+ 3   Request time                      75718 non-null  object
+ 4   Request method                    75718 non-null  object
+ 5   Request URI                       75718 non-null  object
+ 6   Request Protocol                  75718 non-null  object
+ 7   Status                            75718 non-null  int64 
+ 8   Size of response (incl. headers)  75718 non-null  int64 
+dtypes: int64(2), object(7)
+memory usage: 5.2+ MB
+None
+
+=== 5 Baris Pertama ===
+      Remote host Remote logname Remote user          Request time  \
+0   65.55.147.227              -           -  2009-10-15T02:00:24Z   
+1     65.55.86.34              -           -  2009-10-15T02:00:58Z   
+2   148.188.55.88              -           -  2009-10-15T02:01:41Z   
+3  66.249.139.233              -           -  2009-10-15T02:02:09Z   
+4    72.30.50.248              -           -  2009-10-15T02:02:13Z   
+
+  Request method  Request URI Request Protocol  Status  \
+0            GET  /index.html         HTTP/1.1     200   
+1            GET  /index.html         HTTP/1.1     200   
+2            GET    /faq.html         HTTP/1.1     200   
+3            GET    /faq.html         HTTP/1.1     200   
+4            GET  /index.html         HTTP/1.0     200   
+
+   Size of response (incl. headers)  
+0                             21878  
+1                              1416  
+2                             10946  
+3                             17247  
+4                              7883  
+
+=== 10 Baris dengan Request method = GET ===
+      Remote host Remote logname Remote user          Request time  \
+0   65.55.147.227              -           -  2009-10-15T02:00:24Z   
+1     65.55.86.34              -           -  2009-10-15T02:00:58Z   
+2   148.188.55.88              -           -  2009-10-15T02:01:41Z   
+3  66.249.139.233              -           -  2009-10-15T02:02:09Z   
+4    72.30.50.248              -           -  2009-10-15T02:02:13Z   
+5     65.55.80.97              -           -  2009-10-15T02:02:51Z   
+6    65.55.161.41              -           -  2009-10-15T02:02:54Z   
+7   65.55.119.204              -           -  2009-10-15T02:02:55Z   
+8    65.55.58.168              -           -  2009-10-15T02:02:56Z   
+9     65.55.35.29              -           -  2009-10-15T02:02:55Z   
+
+  Request method  Request URI Request Protocol  Status  \
+0            GET  /index.html         HTTP/1.1     200   
+1            GET  /index.html         HTTP/1.1     200   
+2            GET    /faq.html         HTTP/1.1     200   
+3            GET    /faq.html         HTTP/1.1     200   
+4            GET  /index.html         HTTP/1.0     200   
+5            GET  /index.html         HTTP/1.1     200   
+6            GET  /index.html         HTTP/1.1     200   
+7            GET    /faq.html         HTTP/1.1     200   
+8            GET  /index.html         HTTP/1.1     200   
+9            GET    /faq.html         HTTP/1.1     200   
+
+   Size of response (incl. headers)  
+0                             21878  
+1                              1416  
+2                             10946  
+3                             17247  
+4                              7883  
+5                              1416  
+6                             37122  
+7                             64380  
+8                              1202  
+9                            269198  
+
+Jumlah total baris dengan Request method = GET: 75656
+
+✅ File hasil filter disimpan sebagai &#39;filtered_get_requests.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="merubah-request-time-menjadi-tanggal-dan-waktunya-saja">
+<h2>Merubah Request Time menjadi tanggal dan waktunya saja<a class="headerlink" href="#merubah-request-time-menjadi-tanggal-dan-waktunya-saja" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># ⏰ Ubah kolom Request Time menjadi format tanggal dan waktu saja</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1️⃣ Baca file hasil filter sebelumnya</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_get_requests.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2️⃣ Pastikan kolomnya benar</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 3️⃣ Pastikan kolom &#39;Request time&#39; ada</span>
+<span class="k">if</span> <span class="s1">&#39;Request time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Kolom &#39;Request time&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ Konversi kolom &#39;Request time&#39; ke format datetime</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># 5️⃣ Ubah tampilannya jadi string format &#39;YYYY-MM-DD HH:MM:SS&#39;</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+<span class="c1"># 6️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 10 Baris Pertama Setelah Konversi ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Request time&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 7️⃣ Simpan ke file baru</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/converted_request_time.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;converted_request_time.csv&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom ===
+Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &#39;Request time&#39;,
+       &#39;Request method&#39;, &#39;Request URI&#39;, &#39;Request Protocol&#39;, &#39;Status&#39;,
+       &#39;Size of response (incl. headers)&#39;],
+      dtype=&#39;object&#39;)
+
+=== 10 Baris Pertama Setelah Konversi ===
+          Request time
+0  2009-10-15 02:00:24
+1  2009-10-15 02:00:58
+2  2009-10-15 02:01:41
+3  2009-10-15 02:02:09
+4  2009-10-15 02:02:13
+5  2009-10-15 02:02:51
+6  2009-10-15 02:02:54
+7  2009-10-15 02:02:55
+8  2009-10-15 02:02:56
+9  2009-10-15 02:02:55
+
+✅ Kolom &#39;Request time&#39; telah dikonversi dan disimpan sebagai &#39;converted_request_time.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-berdasarkan-ip-address-remote-host-dan-user-agent-request-protocol">
+<h2>Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)<a class="headerlink" href="#filter-berdasarkan-ip-address-remote-host-dan-user-agent-request-protocol" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># 🌐 Filter berdasarkan IP Address (Remote host) dan Request Protocol</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1️⃣ Baca file hasil sebelumnya</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/converted_request_time.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2️⃣ Tampilkan nama kolom untuk memastikan struktur</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Nama Kolom ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 3️⃣ Pastikan kolom yang dibutuhkan ada</span>
+<span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">,</span> <span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_cols</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kolom &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan. Cek nama kolom pada df.columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4️⃣ (Opsional) Tampilkan daftar unik untuk membantu memilih filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Contoh Nilai Unik ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remote host unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request Protocol unik:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="c1"># 5️⃣ Tentukan nilai filter (bisa diganti sesuai kebutuhan)</span>
+<span class="n">target_ip</span> <span class="o">=</span> <span class="s1">&#39;66.249.139.233&#39;</span>         <span class="c1"># 🧩 contoh IP</span>
+<span class="n">target_protocol</span> <span class="o">=</span> <span class="s1">&#39;HTTP/1.1&#39;</span>         <span class="c1"># 🧩 contoh protokol</span>
+
+<span class="c1"># 6️⃣ Lakukan filter</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Remote host&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_ip</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Request Protocol&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_protocol</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># 7️⃣ Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Hasil Filter untuk IP </span><span class="si">{</span><span class="n">target_ip</span><span class="si">}</span><span class="s2"> &amp; Protocol </span><span class="si">{</span><span class="n">target_protocol</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 8️⃣ Hitung jumlah total baris hasil filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total hasil filter:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">))</span>
+
+<span class="c1"># 9️⃣ Simpan hasil ke file baru</span>
+<span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/filtered_ip_protocol.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Hasil filter disimpan sebagai &#39;filtered_ip_protocol.csv&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Nama Kolom ===
+Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &#39;Request time&#39;,
+       &#39;Request method&#39;, &#39;Request URI&#39;, &#39;Request Protocol&#39;, &#39;Status&#39;,
+       &#39;Size of response (incl. headers)&#39;],
+      dtype=&#39;object&#39;)
+
+=== Contoh Nilai Unik ===
+Remote host unik: [&#39;65.55.147.227&#39; &#39;65.55.86.34&#39; &#39;148.188.55.88&#39; &#39;66.249.139.233&#39;
+ &#39;72.30.50.248&#39;]
+Request Protocol unik: [&#39;HTTP/1.1&#39; &#39;HTTP/1.0&#39;]
+
+=== Hasil Filter untuk IP 66.249.139.233 &amp; Protocol HTTP/1.1 ===
+      Remote host Remote logname Remote user         Request time  \
+3  66.249.139.233              -           -  2009-10-15 02:02:09   
+
+  Request method Request URI Request Protocol  Status  \
+3            GET   /faq.html         HTTP/1.1     200   
+
+   Size of response (incl. headers)  
+3                             17247  
+
+Jumlah total hasil filter: 1
+
+✅ Hasil filter disimpan sebagai &#39;filtered_ip_protocol.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dataset-nasa">
+<h1>Dataset NASA<a class="headerlink" href="#dataset-nasa" title="Permalink to this heading">#</a></h1>
+<section id="filter-link-web-html">
+<h2>Filter Link Web HTML<a class="headerlink" href="#filter-link-web-html" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Nama file input</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/data_nasa.csv&quot;</span>
+
+<span class="c1"># 1. Muat dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; karena file Anda menggunakan titik koma</span>
+<span class="c1"># DIUBAH: Tambahkan index_col=0 karena kolom pertama adalah indeks</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 2. Tampilkan info untuk konfirmasi (opsional)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Info data asli:&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+<span class="c1"># 3. Tampilkan beberapa baris pertama data asli (opsional)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data asli (head):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 4. Tentukan kolom target</span>
+<span class="c1"># DIUBAH: Kita mencari .html di kolom &#39;url&#39;, bukan &#39;host&#39;</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;url&quot;</span>
+
+<span class="c1"># 5. Periksa apakah kolom target ada</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 6. Filter baris</span>
+    <span class="c1">#    Logika ini sekarang akan diterapkan pada kolom &#39;url&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; diakhiri dengan &#39;.html&#39;...&quot;</span><span class="p">)</span>
+    <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># 7. Simpan data yang telah difilter ke file CSV baru</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
+    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; saat menyimpan agar konsisten</span>
+    <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 8. Cetak pesan sukses dan pratinjau data yang telah difilter</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/data_nasa.csv...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/1326816150.py:10: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;, index_col=0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Info data asli:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 1048575 entries, 0 to 1048574
+Data columns (total 6 columns):
+ #   Column    Non-Null Count    Dtype 
+---  ------    --------------    ----- 
+ 0   host      1048575 non-null  object
+ 1   time      1048575 non-null  int64 
+ 2   method    1048575 non-null  object
+ 3   url       1048575 non-null  object
+ 4   response  1048575 non-null  int64 
+ 5   bytes     1048575 non-null  int64 
+dtypes: int64(3), object(3)
+memory usage: 56.0+ MB
+
+Data asli (head):
+          host       time method                           url  response  \
+0  ***.novo.dk  805465029    GET                     /ksc.html       200   
+1  ***.novo.dk  805465031    GET    /images/ksclogo-medium.gif       200   
+2  ***.novo.dk  805465051    GET  /images/MOSAIC-logosmall.gif       200   
+3  ***.novo.dk  805465053    GET     /images/USA-logosmall.gif       200   
+4  ***.novo.dk  805465054    GET    /images/NASA-logosmall.gif       200   
+
+   bytes  
+0   7067  
+1   5866  
+2    363  
+3    234  
+4    786  
+
+Memfilter data untuk baris di mana &#39;url&#39; diakhiri dengan &#39;.html&#39;...
+
+Berhasil memfilter data dan menyimpannya ke Data/html_requests_only_NASA.csv.
+Pratinjau data yang telah difilter:
+           host       time method  \
+0   ***.novo.dk  805465029    GET   
+6   ***.novo.dk  805465068    GET   
+12  ***.novo.dk  805465381    GET   
+13  ***.novo.dk  807951768    GET   
+23  ***.novo.dk  807951938    GET   
+
+                                             url  response  bytes  
+0                                      /ksc.html       200   7067  
+6                /shuttle/missions/missions.html       200   8678  
+12     /shuttle/resources/orbiters/columbia.html       200   6922  
+13  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
+23               /shuttle/countdown/liftoff.html       200   4665  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h2>Filter status mengambil nilai yg 200<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Nama file input (file dari langkah sebelumnya)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
+
+<span class="c1"># 1. Muat dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Tentukan kolom target</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;response&quot;</span>
+
+<span class="c1"># 3. Periksa apakah kolom target ada</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 4. Periksa apakah kolomnya numerik (sekarang seharusnya berhasil)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]):</span>
+
+        <span class="c1"># 5. Filter baris di mana &#39;response&#39; sama dengan 200</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; adalah 200...&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Ini adalah baris filter utama (logika Anda sudah benar)</span>
+        <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># 6. Simpan data yang telah difilter ke file CSV baru</span>
+        <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
+        <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten saat menyimpan</span>
+        <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 7. Cetak pesan sukses dan pratinjau data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># (Jika sep=&#39;;&#39; lupa ditambahkan, Anda mungkin akan melihat error ini)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; bukan numerik. Periksa pemisah file CSV.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/html_requests_only_NASA.csv...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/4048228294.py:9: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memfilter data untuk baris di mana &#39;response&#39; adalah 200...
+
+Berhasil memfilter data dan menyimpannya ke Data/status_200_only_NASA.csv.
+Pratinjau data yang telah difilter:
+  Unnamed: 0         host       time method  \
+0          0  ***.novo.dk  805465029    GET   
+1          6  ***.novo.dk  805465068    GET   
+2         12  ***.novo.dk  805465381    GET   
+3         13  ***.novo.dk  807951768    GET   
+4         23  ***.novo.dk  807951938    GET   
+
+                                            url  response  bytes  
+0                                     /ksc.html       200   7067  
+1               /shuttle/missions/missions.html       200   8678  
+2     /shuttle/resources/orbiters/columbia.html       200   6922  
+3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
+4               /shuttle/countdown/liftoff.html       200   4665  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-request-method-mengambil-yg-get">
+<h2>Filter Request Method mengambil yg GET<a class="headerlink" href="#filter-request-method-mengambil-yg-get" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Nama file input (file dari langkah sebelumnya)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
+<span class="n">filter_value</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span>
+<span class="c1"># DIUBAH: Nama kolom yang benar adalah &#39;method&#39;, bukan &#39;Request method&#39;</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;method&quot;</span>
+
+<span class="c1"># 1. Muat dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Periksa apakah kolom target ada</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 3. Filter baris di mana &#39;method&#39; sama dengan &#39;GET&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk baris di mana &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; adalah &#39;</span><span class="si">{</span><span class="n">filter_value</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Ini adalah baris filter utama (Logika Anda sudah benar)</span>
+    <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_value</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># 4. Simpan data yang telah difilter ke file CSV baru</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
+    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten saat menyimpan</span>
+    <span class="n">filtered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 5. Cetak pesan sukses dan pratinjau data (opsional)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil memfilter data dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah difilter:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/status_200_only_NASA.csv...
+
+Memfilter data untuk baris di mana &#39;method&#39; adalah &#39;GET&#39;...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/3866659207.py:12: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berhasil memfilter data dan menyimpannya ke Data/method_get_only_NASA.csv.
+Pratinjau data yang telah difilter:
+  Unnamed: 0         host       time method  \
+0          0  ***.novo.dk  805465029    GET   
+1          6  ***.novo.dk  805465068    GET   
+2         12  ***.novo.dk  805465381    GET   
+3         13  ***.novo.dk  807951768    GET   
+4         23  ***.novo.dk  807951938    GET   
+
+                                            url  response  bytes  
+0                                     /ksc.html       200   7067  
+1               /shuttle/missions/missions.html       200   8678  
+2     /shuttle/resources/orbiters/columbia.html       200   6922  
+3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264  
+4               /shuttle/countdown/liftoff.html       200   4665  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>Merubah Request Time menjadi tanggal dan waktunya saja<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># DIUBAH: Nama file input yang benar</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
+<span class="c1"># DIUBAH: Nama kolom target yang benar</span>
+<span class="n">target_column</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span>
+
+<span class="c1"># 1. Muat dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; untuk membaca file dengan benar</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Periksa apakah kolom target ada</span>
+<span class="k">if</span> <span class="n">target_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di CSV.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 3. Tampilkan contoh format asli (ini adalah Angka/Timestamp)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Format asli (baris pertama): </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 4. Lakukan transformasi:</span>
+    <span class="c1">#    Kita tidak mengganti &#39;T&#39; atau &#39;Z&#39; karena data aslinya adalah angka (Unix timestamp).</span>
+    <span class="c1">#    Kita akan MENGONVERSI timestamp itu ke format datetime yang mudah dibaca.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengonversi kolom &#39;</span><span class="si">{</span><span class="n">target_column</span><span class="si">}</span><span class="s2">&#39; (Unix timestamp) ke format Datetime...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># pd.to_datetime mengonversi angka timestamp (unit=&#39;s&#39; berarti &#39;seconds&#39;)</span>
+    <span class="c1"># Kita buat kolom baru &#39;datetime_readable&#39; agar data asli tidak hilang</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime_readable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 5. Simpan data yang telah diubah ke file CSV baru</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
+    <span class="c1"># DIUBAH: Tambahkan sep=&#39;;&#39; agar konsisten</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 6. Cetak pesan sukses dan pratinjau</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil mengonversi data waktu dan menyimpannya ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pratinjau data yang telah diubah (lihat kolom baru &#39;datetime_readable&#39;):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/method_get_only_NASA.csv...
+Format asli (baris pertama): 805465029
+Mengonversi kolom &#39;time&#39; (Unix timestamp) ke format Datetime...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/1638672458.py:11: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berhasil mengonversi data waktu dan menyimpannya ke Data/time_converted_NASA.csv.
+Pratinjau data yang telah diubah (lihat kolom baru &#39;datetime_readable&#39;):
+  Unnamed: 0         host       time method  \
+0          0  ***.novo.dk  805465029    GET   
+1          6  ***.novo.dk  805465068    GET   
+2         12  ***.novo.dk  805465381    GET   
+3         13  ***.novo.dk  807951768    GET   
+4         23  ***.novo.dk  807951938    GET   
+
+                                            url  response  bytes  \
+0                                     /ksc.html       200   7067   
+1               /shuttle/missions/missions.html       200   8678   
+2     /shuttle/resources/orbiters/columbia.html       200   6922   
+3  /shuttle/missions/sts-69/mission-sts-69.html       200  11264   
+4               /shuttle/countdown/liftoff.html       200   4665   
+
+    datetime_readable  
+0 1995-07-11 12:17:09  
+1 1995-07-11 12:17:48  
+2 1995-07-11 12:23:01  
+3 1995-08-09 07:02:48  
+4 1995-08-09 07:05:38  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Tentukan file input (file yang memiliki &#39;datetime_readable&#39;)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
+
+<span class="c1"># 2. Tentukan kolom-kolom yang akan kita gunakan</span>
+<span class="n">col_ip</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span>               <span class="c1"># Kolom untuk mengelompokkan sesi</span>
+<span class="n">col_time</span> <span class="o">=</span> <span class="s2">&quot;datetime_readable&quot;</span> <span class="c1"># Kolom untuk mengurutkan sesi</span>
+<span class="n">new_col_name</span> <span class="o">=</span> <span class="s2">&quot;SESSION&quot;</span>      <span class="c1"># Nama kolom sesi baru</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 3. Muat dataset</span>
+    <span class="c1"># PENTING: Kita gunakan parse_dates=[col_time]</span>
+    <span class="c1"># agar pandas langsung membacanya sebagai objek datetime</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">col_time</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> tidak ditemukan.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pastikan Anda sudah menjalankan skrip konversi &#39;time&#39; sebelumnya.&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error saat membaca </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">. Cek kolom &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detail: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+
+
+<span class="c1"># 4. Periksa apakah kolom yang diperlukan ada</span>
+<span class="k">if</span> <span class="n">col_ip</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">col_time</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+
+    <span class="c1"># 5. BUAT KOLOM SESSION (Logika yang sama seperti sebelumnya)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Membuat kolom &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; berdasarkan &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; unik...&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># 6. Urutkan data berdasarkan SESSION, lalu WAKTU</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengurutkan data berdasarkan &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; dan &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+    <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_time</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 7. Hapus kolom &#39;time&#39; (timestamp angka) yang asli agar rapi</span>
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Menghapus kolom &#39;time&#39; (timestamp unix) asli...&quot;</span><span class="p">)</span>
+        <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+
+    <span class="c1"># 8. Simpan DataFrame LENGKAP yang sudah diurutkan</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/session_data_full_NASA.csv&quot;</span>
+
+    <span class="c1"># --- INI YANG DIUBAH ---</span>
+    <span class="c1"># Kita ubah sep=&#39;;&#39; (titik-koma) menjadi sep=&#39;,&#39; (koma)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Menyimpan data ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2"> dengan pemisah KOMA (&#39;,&#39;)...&quot;</span><span class="p">)</span>
+    <span class="n">df_sorted</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="c1"># -------------------------</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil! Kolom &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; telah ditambahkan.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File baru disimpan sebagai: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pratinjau data baru (menampilkan kolom yang Anda minta):&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Tampilkan pratinjau hanya dengan kolom yang diminta agar mudah dilihat</span>
+    <span class="n">preview_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_ip</span><span class="p">,</span> <span class="n">col_time</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">preview_cols</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; atau &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/time_converted_NASA.csv...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/295056162.py:16: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;, parse_dates=[col_time])
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Membuat kolom &#39;SESSION&#39; berdasarkan &#39;host&#39; unik...
+Mengurutkan data berdasarkan &#39;SESSION&#39; dan &#39;datetime_readable&#39;...
+Menghapus kolom &#39;time&#39; (timestamp unix) asli...
+Menyimpan data ke Data/session_data_full_NASA.csv dengan pemisah KOMA (&#39;,&#39;)...
+
+Berhasil! Kolom &#39;SESSION&#39; telah ditambahkan.
+File baru disimpan sebagai: Data/session_data_full_NASA.csv
+
+Pratinjau data baru (menampilkan kolom yang Anda minta):
+   SESSION         host   datetime_readable  \
+0        1  ***.novo.dk 1995-07-11 12:17:09   
+1        1  ***.novo.dk 1995-07-11 12:17:48   
+2        1  ***.novo.dk 1995-07-11 12:23:01   
+3        1  ***.novo.dk 1995-08-09 07:02:48   
+4        1  ***.novo.dk 1995-08-09 07:05:38   
+
+                                            url  
+0                                     /ksc.html  
+1               /shuttle/missions/missions.html  
+2     /shuttle/resources/orbiters/columbia.html  
+3  /shuttle/missions/sts-69/mission-sts-69.html  
+4               /shuttle/countdown/liftoff.html  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Tentukan file input (file yang memiliki &#39;datetime_readable&#39;)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
+
+<span class="c1"># 2. Tentukan kolom-kolom yang akan kita gunakan</span>
+<span class="n">col_ip</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span>               <span class="c1"># Kolom untuk mengelompokkan sesi</span>
+<span class="n">col_time</span> <span class="o">=</span> <span class="s2">&quot;datetime_readable&quot;</span> <span class="c1"># Kolom untuk mengurutkan sesi</span>
+<span class="n">new_col_name</span> <span class="o">=</span> <span class="s2">&quot;SESSION&quot;</span>      <span class="c1"># Nama kolom sesi baru</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat data dari </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 3. Muat dataset (pemisah asli adalah &#39;;&#39;)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">col_time</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> tidak ditemukan.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pastikan Anda sudah menjalankan skrip konversi &#39;time&#39; sebelumnya.&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error saat membaca </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">. Cek kolom &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detail: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+
+
+<span class="c1"># 4. Periksa apakah kolom yang diperlukan ada</span>
+<span class="k">if</span> <span class="n">col_ip</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">col_time</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+
+    <span class="c1"># 5. BUAT KOLOM SESSION (Logika yang sama seperti sebelumnya)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Membuat kolom &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; berdasarkan &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; unik...&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ip</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># 6. Urutkan data berdasarkan SESSION, lalu WAKTU</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengurutkan data berdasarkan &#39;</span><span class="si">{</span><span class="n">new_col_name</span><span class="si">}</span><span class="s2">&#39; dan &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+    <span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">,</span> <span class="n">col_time</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 7. (Langkah menghapus &#39;time&#39; tidak diperlukan lagi)</span>
+
+    <span class="c1"># --- DIUBAH DI SINI ---</span>
+
+    <span class="c1"># 8. Tentukan kolom yang ingin disimpan (sesuai permintaan Anda)</span>
+    <span class="c1">#    Kita tambahkan &#39;SESSION&#39; ke daftar ini</span>
+    <span class="n">columns_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SESSION&#39;</span><span class="p">,</span> <span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime_readable&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Buat DataFrame baru HANYA dengan 4 kolom tersebut</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memfilter data untuk HANYA menyimpan kolom: </span><span class="si">{</span><span class="n">columns_to_keep</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">df_final_output</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="p">[</span><span class="n">columns_to_keep</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># 9. Simpan DataFrame yang SUDAH DIFILTER</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="s2">&quot;Data/session_host_time_url_NASA.csv&quot;</span> <span class="c1"># Nama file baru</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Menyimpan data ke </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2"> dengan pemisah KOMA (&#39;,&#39;)...&quot;</span><span class="p">)</span>
+    <span class="n">df_final_output</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berhasil! File baru disimpan sebagai: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pratinjau data baru (sekarang dengan 4 kolom):&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Tampilkan pratinjau dari data final</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_final_output</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Kolom &#39;</span><span class="si">{</span><span class="n">col_ip</span><span class="si">}</span><span class="s2">&#39; atau &#39;</span><span class="si">{</span><span class="n">col_time</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan di </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat data dari Data/time_converted_NASA.csv...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9304/1320678431.py:14: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(file_name, sep=&#39;;&#39;, parse_dates=[col_time])
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Membuat kolom &#39;SESSION&#39; berdasarkan &#39;host&#39; unik...
+Mengurutkan data berdasarkan &#39;SESSION&#39; dan &#39;datetime_readable&#39;...
+
+Memfilter data untuk HANYA menyimpan kolom: [&#39;SESSION&#39;, &#39;host&#39;, &#39;datetime_readable&#39;, &#39;url&#39;]...
+Menyimpan data ke Data/session_host_time_url_NASA.csv dengan pemisah KOMA (&#39;,&#39;)...
+
+Berhasil! File baru disimpan sebagai: Data/session_host_time_url_NASA.csv.
+
+Pratinjau data baru (sekarang dengan 4 kolom):
+   SESSION         host   datetime_readable  \
+0        1  ***.novo.dk 1995-07-11 12:17:09   
+1        1  ***.novo.dk 1995-07-11 12:17:48   
+2        1  ***.novo.dk 1995-07-11 12:23:01   
+3        1  ***.novo.dk 1995-08-09 07:02:48   
+4        1  ***.novo.dk 1995-08-09 07:05:38   
+
+                                            url  
+0                                     /ksc.html  
+1               /shuttle/missions/missions.html  
+2     /shuttle/resources/orbiters/columbia.html  
+3  /shuttle/missions/sts-69/mission-sts-69.html  
+4               /shuttle/countdown/liftoff.html  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Web Usage</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-html">Filter request html</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-status-mengambil-nilai-yg-200">Filter status mengambil nilai yg 200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-method-mengambil-yang-get">Filter request method mengambil yang GET</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-request-time-menjadi-tanggal-dan-waktunya-saja">Merubah Request Time menjadi tanggal dan waktunya saja</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-berdasarkan-ip-address-remote-host-dan-user-agent-request-protocol">Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-nasa">Dataset NASA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-link-web-html">Filter Link Web HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Filter status mengambil nilai yg 200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-request-method-mengambil-yg-get">Filter Request Method mengambil yg GET</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Merubah Request Time menjadi tanggal dan waktunya saja</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

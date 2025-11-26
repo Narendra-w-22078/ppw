@@ -1,0 +1,771 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Crawling &#8212; PPW</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_I_A_(PPW)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PPW</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Pengantar Web Mining</a></li>
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FTugas_I_A_(PPW).html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas_I_A_(PPW).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Crawling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="crawling">
+<h1>Crawling<a class="headerlink" href="#crawling" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sprynger</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting sprynger
+  Downloading sprynger-0.4.1-py3-none-any.whl.metadata (5.8 kB)
+Requirement already satisfied: lxml in /usr/local/lib/python3.12/dist-packages (from sprynger) (5.4.0)
+Requirement already satisfied: requests in /usr/local/lib/python3.12/dist-packages (from sprynger) (2.32.4)
+Requirement already satisfied: urllib3 in /usr/local/lib/python3.12/dist-packages (from sprynger) (2.5.0)
+Requirement already satisfied: platformdirs in /usr/local/lib/python3.12/dist-packages (from sprynger) (4.3.8)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;sprynger) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;sprynger) (3.10)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;sprynger) (2025.8.3)
+Downloading sprynger-0.4.1-py3-none-any.whl (40 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/40.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">40.2/40.2 kB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hInstalling collected packages: sprynger
+Successfully installed sprynger-0.4.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>##Crawling Web Mining</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Masukkan API key yang kamu dapat dari https://dev.springernature.com/#api</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;bb5c8dcf4c49724ba77086b237793f86&quot;</span>
+
+
+<span class="n">keyword</span> <span class="o">=</span> <span class="s2">&quot;web mining&quot;</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.springernature.com/meta/v2/json&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span>
+    <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+    <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="mi">10</span>   <span class="c1"># jumlah hasil yang mau ditampilkan</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total hasil: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;total&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
+        <span class="n">doi</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doi&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;No title&#39;</span><span class="p">)</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;abstract&#39;</span><span class="p">,</span> <span class="s1">&#39;No abstract&#39;</span><span class="p">)</span>
+        <span class="n">url_val</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DOI: </span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Abstract: </span><span class="si">{</span><span class="n">abstract</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;URL: </span><span class="si">{</span><span class="n">url_val</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total hasil: 317019
+
+DOI: 10.1007/978-3-032-00983-8_5
+Title: Survey on Data Mining and Machine Learning Methods Used in Analyzing Tweets
+Abstract: It is observed that the Mental illness by the actions and individual emotions and expressions towards a particular situation. It indicates that American Psychiatric Association that has 19% of people experience mental illness. Nearly 4.1% of people [ 1 ] are seriously affected by mental illness. In 2019, World Health Organization(WHO) reported that 264 million people suffer from mental disorders. With the technological growth and affordable internet access, social media usage and impacts are increased in society. Users use social networks to show their emotions, views, and comments related to mental health on various events and themselves. Different intelligent methods that analyze tweets related to depression are summarized. New research areas in analyzing data on social networks are discussed. This article highlights the data mining and machine learning methods associated with mental health using Twitter data.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-00983-8_5
+
+DOI: 10.1007/978-3-031-93802-3_7
+Title: Unveiling Power Laws in Graph Mining: Techniques and Applications in Graph Query Analysis
+Abstract: Power laws play a crucial role in understanding the structural and functional properties of real-world graphs, influencing various aspects of graph mining and query processing. This paper explores the prevalence of power-law distributions in large-scale graph structures and their implications for graph query analysis. We investigate techniques for efficiently mining graphs that exhibit power-law characteristics, leveraging these distributions to optimize query performance and scalability. Our study presents a comprehensive review of existing methodologies for detecting power-law behavior in graphs, highlighting their impact on graph traversal, indexing, and query execution. We also examine algorithmic optimizations tailored for power-law graphs, including degree-based indexing, community-aware search techniques, and efficient subgraph matching approaches. Furthermore, we discuss the applications of power-law principles in diverse domains such as social network analysis, bioinformatics, and knowledge graphs. Through empirical analysis on real-world datasets, we demonstrate how power-law-aware techniques improve query efficiency and reduce computational complexity in large graph databases. The findings of this study offer valuable insights into the interplay between graph topology and query optimization, paving the way for enhanced graph mining frameworks. Our work contributes to the development of more scalable and intelligent graph query processing systems, with broad implications for data-driven decision-making.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-93802-3_7
+
+DOI: 10.1007/978-981-96-7238-7_2
+Title: Architecture Mining Approach for Systems-of-Systems: Monitoring and Discovery
+Abstract: Context: Systems of Systems (SoS) constitute a type of complex software systems resulting from integrating heterogeneous constituent systems that are independently operable on their own but are networked together for a common goal. Each constituent system has its own purpose and could operate and collaborate voluntarily with other constituent systems to achieve a common goal that cannot be treated by any of them in isolation. Objective: A constituent system may be deployed or undeployed at run-time within an SoS. Emergent behaviors may be undesirable and affect the behaviors of each constituent system and lead to unexpected operations and a lack of permanent status in the SoS. Thus, we need to continuously extract and represent the actual behaviors within the SoS at run-time. Method: In this paper, we implement the first step our “Architecture Mining” approach. Thus, we monitor an SoS and develop Discovery algorithm to extract the actual behaviors. The actual behaviors are presented by a “Discovered Model” dynamically and automatically built from the execution traces. Results: To implement our approach, we applied it to a case study entitled Smart City, which is an SoS including six types of constituent systems. We extracted the actual behaviors executed at run time from the SoS execution traces, which have never been modeled in any constituent system nor expected by the designer.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-981-96-7238-7_2
+
+DOI: 10.1007/978-3-031-95296-8_15
+Title: A Mathematical Model and Algorithm for Data Analysis in the Intelligent Management System for Mining and Transport Complexes
+Abstract: Machine learning methods play an important role in creating algorithms for data analysis in the mining industry. These methods allow you to train the system based on historical data and identify hidden patterns that may not be obvious in traditional analysis. Machine learning algorithms can be used to predict breakdowns, optimize production processes and identify anomalies in the operation of machinery. For example, with the help of training on data on the operation of equipment, you can create a model that will predict the probability of failure of a certain part under specified operating conditions.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-95296-8_15
+
+DOI: 10.1007/978-3-031-90470-7_6
+Title: ‘Internet of Things’ and ‘Social Networking’: Containment
+Abstract: Moving to the post-2000 period, or the post-formation Internet Polity, this chapter begins with the implications of the internet becoming the centred repository of sources, medium of investigation, and object in historicist accounts of recent and contemporary events. Debates on ‘technological determinism Technological determinism ’ are considered here. As events, 9/11 and the 2000 dot-com crash are pegged as turning points. A broad argument is proposed about the condition of the Internet Polity thereafter. It is suggested that it became contained in two moves during the 2000s. This containment involved, first, a space of the internet opening beyond the scope of the Internet Polity. This space incorporated data exchanges between ‘smart’ objects, unsupervised systems, and machine-learning systems. Second, much of the Internet Polity discourse and collective life became concentrated in very large platforms, which have global reach, local penetration, and data-management standards. This move facilitated the burgeoning data market and fed into the first move. The two moves are outlined by focusing on two catchwords and related terms. The first is addressed via the connotations of ‘Internet of Things’ and ‘smart’ objects, and the second by pausing on ‘social networking’ (on ‘sites’ or ‘platforms’). This chapter, and the study, concludes by briefly reconsidering the formative first principles of the Internet Polity, and pinpointing areas for further investigations.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-90470-7_6
+
+DOI: 10.1007/978-3-031-93802-3_10
+Title: Integrating Graph Convolutional Networks for Web Traffic Prediction
+Abstract: Web traffic forecasting plays a crucial role in optimizing network resources, enhancing user experience, and ensuring efficient server load management. Traditional approaches, such as ARIMA, SARIMA, and machine learning methods like support vector machines and decision trees, focus primarily on temporal data. These models, however, often fail to capture the intricate relationships within web traffic data, such as user interactions or page-to-page connections, resulting in sub-optimal predictive performance. Graph Convolutional Networks (GCNs) address these limitations by modeling web traffic as a graph, where web pages or users are represented as nodes, and their interactions form edges. GCNs aggregate node information through graph structures, enabling the model to learn both spatial and temporal dependencies inherent in web traffic. This ability to exploit complex data relationships makes GCNs well-suited for more accurate and dynamic web traffic predictions. In this work, we propose a GCN-based framework for web traffic forecasting, incorporating multiple optimizers like Adam, RMSProp, and SGD to identify the model’s fair performance. By optimizing training through these methods, the GCN model efficiently captures both short-term fluctuations and long-term trends in web traffic patterns. Our study highlights the potential of GCNs in elevating the accuracy and reliability of web traffic forecasting. The integration of advanced optimizers further enhances convergence and prediction efficiency, offering a more scalable solution to meet the demands of rapidly growing and complex web systems.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-93802-3_10
+
+DOI: 10.1007/978-3-031-93257-1_6
+Title: Adaptive Web API Recommendation via Matching Service Clusters and Mashup Requirement
+Abstract: With the rapid proliferation of Web services and Web APIs, recommendation systems can effectively address the issue of information overload and alleviate the burden of meaningless filtering. Existing approaches can help filtering appropriate Web services for mashup creation, however, they often fall short of developers’ different and personalized needs by recommending only a fixed number of APIs and lack precision in aligning mashup requirements across all categories. To solve the above issue, this paper introduces a novel Web service recommendation framework called AWAR for mashup creation, which focuses on the matching strategy between mashup requirements and Web APIs, and enhances recommendation effectiveness by integrating natural language processing, optimization algorithms, and deep learning. Extensive experiments conducted on large-scale real datasets demonstrate that the proposed approach receives superior recommendation results on multiple evaluation metrics compared to advanced competing baselines.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-93257-1_6
+
+DOI: 10.1007/978-3-032-02215-8_3
+Title: Leveraging Machine Learning Techniques for Customer Data Deduplication - Hard-Won Lessons from a Real-World Project in the Financial Industry
+Abstract: This paper is associated with a tutorial presented at DEXA 2025 Conferences and Workshops. The tutorial shares the practical experience gained from a 3-year R&amp;D project for a big financial institution in Poland. The project aimed at developing deduplication pipelines for customer records. It involved the development of two distinct end-to-end deduplication pipelines that are based on (1) statistical/probabilistic modeling and on (2) machine learning. This tutorial focuses on lessons learned from developing the machine learning pipeline , within the context of a real-world industrial setting. Moreover, this tutorial provides an overview of approaches to data deduplication, including the traditional state-of-the-art baseline deduplication pipeline, solutions based on machine learning and neural networks that apply pre-trained and large language models.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-02215-8_3
+
+DOI: 10.1007/978-3-031-95296-8_21
+Title: Intelligent Control System for Ore Transportation and Grinding Process in Gold Mining Fields
+Abstract: This paper is devoted to optimizing the processes of work using intellectual control systems for the transportation and grinding of ore in gold mining fields. Ore is being optimized through the introduction of modern technologies and information systems in the transportation and grinding processes in order to increase efficiency, reduce energy consumption and reduce production costs. The paper examines the applications of IoT technologies, artificial intelligence, and large-scale data analysis in ore transport and grinding processes. With these systems, there is talk of monitoring processes in real time and improving the efficiency of equipment operation. New methods for managing ore transport and grinding processes through mathematical models, optimization algorithms and artificial neural networks are also presented. The results of scientific research in this paper can contribute to innovations and technological developments in the field of gold mining. Improving efficiency through automation of gold mining processes and intellectual management systems not only contributes to economic benefits, but also to the protection of the environment.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-95296-8_21
+
+DOI: 10.1007/978-3-032-02088-8_29
+Title: Benchmarking Embedding Techniques for Modeling User Navigation Behavior on Task-Oriented Software
+Abstract: Understanding user navigation patterns from clickstream data is crucial for improving business software, yet remains challenging due to the complexity and variability of real-world environments. Unlike controlled settings, real-world clickstreams are noisy, fragmented, and often incomplete, due to session timeouts, network issues, caching, or third-party interactions—making it difficult to reconstruct coherent user journeys. Additionally, the absence of labeled data hinders the use of supervised learning, pushing researchers toward unsupervised or heuristic-based approaches that struggle to fully capture user behavior. In this paper, we present a benchmark of embedding techniques for modeling user navigation behavior on task-oriented software. We identify distinct user behaviors across three real-world case studies. Results show that Pattern2Vec outperforms Word2Vec in capturing meaningful task-based navigation patterns, confirming its suitability for clickstream analysis.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-02088-8_29
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="c1"># Masukkan API key milikmu</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;bb5c8dcf4c49724ba77086b237793f86&quot;</span>
+
+<span class="n">keyword</span> <span class="o">=</span> <span class="s2">&quot;web mining&quot;</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.springernature.com/meta/v2/json&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span>
+    <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+    <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="mi">20</span>   <span class="c1"># jumlah hasil yang mau ditampilkan</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="c1"># Simpan ke CSV</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hasilwebmining.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;DOI&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="s2">&quot;Abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;URL&quot;</span><span class="p">])</span>  <span class="c1"># header</span>
+
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
+            <span class="n">doi</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doi&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;No title&#39;</span><span class="p">)</span>
+            <span class="n">abstract</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;abstract&#39;</span><span class="p">,</span> <span class="s1">&#39;No abstract&#39;</span><span class="p">)</span>
+            <span class="n">url_val</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">doi</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">abstract</span><span class="p">,</span> <span class="n">url_val</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File hasilwebmining.csv berhasil dibuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File hasilwebmining.csv berhasil dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+<p>##Crawling Web Usage Mining</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Masukkan API key yang kamu dapat dari https://dev.springernature.com/#api</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;bb5c8dcf4c49724ba77086b237793f86&quot;</span>   <span class="c1"># ganti dengan API key punyamu</span>
+
+
+<span class="n">keyword</span> <span class="o">=</span> <span class="s2">&quot;web usage mining&quot;</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.springernature.com/meta/v2/json&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span>
+    <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+    <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="mi">10</span>   <span class="c1"># jumlah hasil yang mau ditampilkan</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total hasil: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;total&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
+        <span class="n">doi</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doi&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;No title&#39;</span><span class="p">)</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;abstract&#39;</span><span class="p">,</span> <span class="s1">&#39;No abstract&#39;</span><span class="p">)</span>
+        <span class="n">url_val</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DOI: </span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Abstract: </span><span class="si">{</span><span class="n">abstract</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;URL: </span><span class="si">{</span><span class="n">url_val</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total hasil: 90635
+
+DOI: 10.1007/978-3-031-90470-7_6
+Title: ‘Internet of Things’ and ‘Social Networking’: Containment
+Abstract: Moving to the post-2000 period, or the post-formation Internet Polity, this chapter begins with the implications of the internet becoming the centred repository of sources, medium of investigation, and object in historicist accounts of recent and contemporary events. Debates on ‘technological determinism Technological determinism ’ are considered here. As events, 9/11 and the 2000 dot-com crash are pegged as turning points. A broad argument is proposed about the condition of the Internet Polity thereafter. It is suggested that it became contained in two moves during the 2000s. This containment involved, first, a space of the internet opening beyond the scope of the Internet Polity. This space incorporated data exchanges between ‘smart’ objects, unsupervised systems, and machine-learning systems. Second, much of the Internet Polity discourse and collective life became concentrated in very large platforms, which have global reach, local penetration, and data-management standards. This move facilitated the burgeoning data market and fed into the first move. The two moves are outlined by focusing on two catchwords and related terms. The first is addressed via the connotations of ‘Internet of Things’ and ‘smart’ objects, and the second by pausing on ‘social networking’ (on ‘sites’ or ‘platforms’). This chapter, and the study, concludes by briefly reconsidering the formative first principles of the Internet Polity, and pinpointing areas for further investigations.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-90470-7_6
+
+DOI: 10.1007/978-3-032-00983-8_5
+Title: Survey on Data Mining and Machine Learning Methods Used in Analyzing Tweets
+Abstract: It is observed that the Mental illness by the actions and individual emotions and expressions towards a particular situation. It indicates that American Psychiatric Association that has 19% of people experience mental illness. Nearly 4.1% of people [ 1 ] are seriously affected by mental illness. In 2019, World Health Organization(WHO) reported that 264 million people suffer from mental disorders. With the technological growth and affordable internet access, social media usage and impacts are increased in society. Users use social networks to show their emotions, views, and comments related to mental health on various events and themselves. Different intelligent methods that analyze tweets related to depression are summarized. New research areas in analyzing data on social networks are discussed. This article highlights the data mining and machine learning methods associated with mental health using Twitter data.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-00983-8_5
+
+DOI: 10.1007/978-3-031-93802-3_7
+Title: Unveiling Power Laws in Graph Mining: Techniques and Applications in Graph Query Analysis
+Abstract: Power laws play a crucial role in understanding the structural and functional properties of real-world graphs, influencing various aspects of graph mining and query processing. This paper explores the prevalence of power-law distributions in large-scale graph structures and their implications for graph query analysis. We investigate techniques for efficiently mining graphs that exhibit power-law characteristics, leveraging these distributions to optimize query performance and scalability. Our study presents a comprehensive review of existing methodologies for detecting power-law behavior in graphs, highlighting their impact on graph traversal, indexing, and query execution. We also examine algorithmic optimizations tailored for power-law graphs, including degree-based indexing, community-aware search techniques, and efficient subgraph matching approaches. Furthermore, we discuss the applications of power-law principles in diverse domains such as social network analysis, bioinformatics, and knowledge graphs. Through empirical analysis on real-world datasets, we demonstrate how power-law-aware techniques improve query efficiency and reduce computational complexity in large graph databases. The findings of this study offer valuable insights into the interplay between graph topology and query optimization, paving the way for enhanced graph mining frameworks. Our work contributes to the development of more scalable and intelligent graph query processing systems, with broad implications for data-driven decision-making.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-93802-3_7
+
+DOI: 10.1007/978-3-032-02215-8_7
+Title: An Enhanced FP-Growth Algorithm with Hybrid Adaptive Support Threshold for Association Rule Mining
+Abstract: Finding frequent itemsets remains challenging due to manual threshold specification requirements in existing algorithms. This paper presents an Enhanced FP-Growth algorithm incorporating a hybrid adaptive support threshold that combines statistical variance analysis, frequency distribution patterns, and transaction density metrics. The algorithm automatically adjusts support levels based on dataset characteristics, eliminating manual threshold tuning. Experimental evaluation on five benchmark datasets against Aprior, FP-growth, and FP-Max shows our Enhanced FP-Growth consistently achieves superior execution time and improved memory efficiency. The hybrid threshold mechanism dynamically calibrates according to dataset characteristics, offering substantial efficiency gains across diverse data types.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-02215-8_7
+
+DOI: 10.1007/978-3-031-93257-1_6
+Title: Adaptive Web API Recommendation via Matching Service Clusters and Mashup Requirement
+Abstract: With the rapid proliferation of Web services and Web APIs, recommendation systems can effectively address the issue of information overload and alleviate the burden of meaningless filtering. Existing approaches can help filtering appropriate Web services for mashup creation, however, they often fall short of developers’ different and personalized needs by recommending only a fixed number of APIs and lack precision in aligning mashup requirements across all categories. To solve the above issue, this paper introduces a novel Web service recommendation framework called AWAR for mashup creation, which focuses on the matching strategy between mashup requirements and Web APIs, and enhances recommendation effectiveness by integrating natural language processing, optimization algorithms, and deep learning. Extensive experiments conducted on large-scale real datasets demonstrate that the proposed approach receives superior recommendation results on multiple evaluation metrics compared to advanced competing baselines.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-93257-1_6
+
+DOI: 10.1007/978-3-032-02088-8_29
+Title: Benchmarking Embedding Techniques for Modeling User Navigation Behavior on Task-Oriented Software
+Abstract: Understanding user navigation patterns from clickstream data is crucial for improving business software, yet remains challenging due to the complexity and variability of real-world environments. Unlike controlled settings, real-world clickstreams are noisy, fragmented, and often incomplete, due to session timeouts, network issues, caching, or third-party interactions—making it difficult to reconstruct coherent user journeys. Additionally, the absence of labeled data hinders the use of supervised learning, pushing researchers toward unsupervised or heuristic-based approaches that struggle to fully capture user behavior. In this paper, we present a benchmark of embedding techniques for modeling user navigation behavior on task-oriented software. We identify distinct user behaviors across three real-world case studies. Results show that Pattern2Vec outperforms Word2Vec in capturing meaningful task-based navigation patterns, confirming its suitability for clickstream analysis.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-02088-8_29
+
+DOI: 10.1007/978-3-032-01723-9_9
+Title: Analyzing Water Consumption Patterns in Mexico City: A GIS and Data Science Approach
+Abstract: Water scarcity in Mexico City has become an increasingly urgent issue, exacerbated by inefficient and unequal consumption patterns across its urban fabric. This study advances Geographic Information Systems (GIS) research by developing and applying an integrative spatial analysis framework specifically tailored to the complexities of urban water management. Beyond its application to Mexico City, the research demonstrates how GIS can be used to fuse heterogeneous datasets, including those from SACMEX (Mexico City’s Water System), INEGI (National Institute of Statistics and Geography), and DENUE (National Directory of Economic Units), into a unified analytical environment. Through a combination of exploratory data analysis (EDA), spatial data mining, and clustering techniques, the study identifies critical disparities in water consumption at multiple spatial scales, from boroughs to neighborhoods. A key contribution is the implementation of a layered system architecture for managing historic spatiotemporal data, enabling dynamic visualization of consumption patterns. The findings reveal that socio-economic and demographic variables play a decisive role in shaping spatial water demand, with marginalized communities facing disproportionate challenges. While previous spatiotemporal analyses of water consumption in Mexico City have primarily focused on aggregated borough-level data or isolated socio-demographic correlations, they have often lacked multiscale integration, high-resolution neighborhood-level analysis, or interactive visualization tools to support policy development. This research addresses these limitations by providing a fine-grained, multilayered analytical approach that enhances the scientific understanding of urban water use. Beyond offering immediate policy-relevant insights for Mexico City, the methodological framework proposed here contributes to GIS research by providing a scalable, transferable approach for analyzing urban resource consumption patterns. Future work will focus on incorporating real-time data streams, expanding sector-specific analysis, and integrating additional variables and domains required for a comprehensive understanding of water dynamics. This study represents a first step toward building an adaptive, equitable, and efficient urban water management strategy.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-01723-9_9
+
+DOI: 10.1007/978-981-96-6951-6_19
+Title: Research on Sensor Behavioral Psychological Health Based on Multi-task Learning
+Abstract: As society develops, mental health is becoming increasingly important. Traditional mental health assessment methods, such as face-to-face interviews and observational techniques, are limited by several factors, including subjectivity, response delays, and high costs. To address these issues, recent research has utilized smart sensor data. Using smartphones to collect data provides valuable insights into student behavior while ensuring the privacy of the individuals involved. The transition from traditional questionnaires to sensor data has prompted the adoption of a multi-task learning (MTL) framework for a more comprehensive classification of mental health. This study investigates the relationship between behavioral attributes and mental health dimensions, using the Apriori algorithm for association rule mining and feature extraction. This method uncovers significant correlations, highlighting the close connection between mental health and behavioral data through detailed analysis. The study proposes the use of multi-task modeling to optimize information utilization and identify correlations across tasks. The introduction of the Deep Cross Network with Squeeze and Excitation Network and Progressive Layered Extraction (DC-SE-PLE), a deep learning neural network model, enhances hierarchical feature extraction and cross-task learning, significantly improving the model’s generalization and prediction accuracy.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-981-96-6951-6_19
+
+DOI: 10.1007/978-3-031-89518-0_1
+Title: On the Centrality of Web Trackers: Assessing Its Potential for Automated Detection
+Abstract: For the past 20 years, web tracking has raised worries among privacy advocates and authorities responsible for data protection. Researchers have proposed several machine learning-driven remedies to identify Web trackers in an automated manner. While those have displayed potential, they have primarily remained as proofs-of-concept. This work extends on t.ex-Graph outlined in our previous work [ 36 ]. The aim of this model is to distinguish benign from tracking hosts by considering their centrality in the network, and data flows to them. Based on the results of our previous work, we abandoned the SLD-based approach. Consequently, we made slight modifications to the feature vector. Our classifier’s performance is comparable to its original version, and we tested its cross-browser and longitudinal performance. Our results indicate that while the cross-browser performance significantly decreases, the longitudinal performance maintains a high level.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-031-89518-0_1
+
+DOI: 10.1007/978-3-032-02215-8_6
+Title: FNoDe: Faulty Node Detection in Microservices Architecture
+Abstract: As cloud services shift from monolithic architectures to microservices, post-failure fault and anomaly detection becomes increasingly challenging due to cascading effects across interdependent services and the overwhelming volume of heterogeneous logs and metrics. We propose FNoDe (Faulty Node Detection), a framework that integrates application logs, performance metrics, and distributed traces into a unified graph structure to detect both the root cause and type of anomaly. By leveraging a graph convolutional network (GCN), FNoDe learns system representations under normal and anomalous states from historical microservice data and uses these embeddings to classify new system states. Evaluated on five public benchmarks and two in-house microservice systems, FNoDe outperforms traditional methods by 20–30% in accuracy and maintains competitive performance with state-of-the-art frameworks, while also offering interpretability through XAI techniques.
+URL: http://link.springer.com/openurl/fulltext?id=doi:10.1007/978-3-032-02215-8_6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="c1"># Masukkan API key milikmu</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;bb5c8dcf4c49724ba77086b237793f86&quot;</span>
+
+<span class="n">keyword</span> <span class="o">=</span> <span class="s2">&quot;web usage mining&quot;</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.springernature.com/meta/v2/json&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span>
+    <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+    <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="mi">20</span>   <span class="c1"># jumlah hasil yang mau ditampilkan</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="c1"># Simpan ke CSV</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hasil_web_usage_mining.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;DOI&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="s2">&quot;Abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;URL&quot;</span><span class="p">])</span>  <span class="c1"># header</span>
+
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
+            <span class="n">doi</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doi&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;No title&#39;</span><span class="p">)</span>
+            <span class="n">abstract</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;abstract&#39;</span><span class="p">,</span> <span class="s1">&#39;No abstract&#39;</span><span class="p">)</span>
+            <span class="n">url_val</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;N/A&#39;</span><span class="p">)</span>
+
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">doi</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">abstract</span><span class="p">,</span> <span class="n">url_val</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File hasil_web_usage_mining.csv berhasil dibuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File hasil_web_usage_mining.csv berhasil dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
