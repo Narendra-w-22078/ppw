@@ -65,6 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'webusage';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deteksi Komunitas" href="Deteksi_Komunitas.html" />
     <link rel="prev" title="Page Rank" href="Page_Rank.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -199,6 +200,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Page_Rank.html">Page Rank</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Web Usage</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="Deteksi_Komunitas.html">Deteksi Komunitas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">Crawling Twitter</a></li>
 </ul>
 
     </div>
@@ -426,7 +429,7 @@ document.write(`
 <h1>Web Usage<a class="headerlink" href="#web-usage" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install pandas
 </pre></div>
 </div>
 </div>
@@ -445,7 +448,7 @@ Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3
 <h2>Filter request html<a class="headerlink" href="#filter-request-html" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
 <span class="c1"># 📦 Filter Request URI yang Mengandung .html (VERSI FINAL)</span>
 <span class="c1"># ==========================================================</span>
 
@@ -565,7 +568,7 @@ Jumlah total URI yang mengandung .html: 24069
 <h2>Filter status mengambil nilai yg 200<a class="headerlink" href="#filter-status-mengambil-nilai-yg-200" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
 <span class="c1"># 📦 Filter Status = 200 dari file filtered_html_requests.csv</span>
 <span class="c1"># ==========================================================</span>
 
@@ -709,7 +712,7 @@ Jumlah total baris dengan Status = 200: 22359
 <h2>Filter request method mengambil yang GET<a class="headerlink" href="#filter-request-method-mengambil-yang-get" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
 <span class="c1"># 📦 Filter Request method = GET dari file filtered_status_200.csv</span>
 <span class="c1"># ==========================================================</span>
 
@@ -856,7 +859,7 @@ Jumlah total baris dengan Request method = GET: 22339
 <h2>Merubah Request Time menjadi tanggal dan waktunya saja<a class="headerlink" href="#merubah-request-time-menjadi-tanggal-dan-waktunya-saja" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
 <span class="c1"># ⏰ Ubah kolom Request Time menjadi format tanggal &amp; waktu saja</span>
 <span class="c1"># ==========================================================</span>
 
@@ -937,7 +940,7 @@ Index([&#39;Remote host&#39;, &#39;Remote logname&#39;, &#39;Remote user&#39;, &
 <h2>Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)<a class="headerlink" href="#filter-berdasarkan-ip-address-remote-host-dan-user-agent-request-protocol" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
 <span class="c1"># 🌐 Filter berdasarkan IP Address (Remote host) dan Request Protocol</span>
 <span class="c1"># ==========================================================</span>
 
@@ -1045,7 +1048,7 @@ Jumlah total hasil filter: 1
 <h2>Filter Link Web HTML<a class="headerlink" href="#filter-link-web-html" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/data_nasa.csv&quot;</span>
@@ -1164,7 +1167,7 @@ memory usage: 15.0+ MB
 <h2>Filter status mengambil nilai yg 200<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/html_requests_only_NASA.csv&quot;</span>
@@ -1255,7 +1258,7 @@ Jumlah total baris: 53898
 <h2>Filter Request Method mengambil yg GET<a class="headerlink" href="#filter-request-method-mengambil-yg-get" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/status_200_only_NASA.csv&quot;</span>
@@ -1347,7 +1350,7 @@ Jumlah total baris hasil filter: 53682
 <h2>Merubah Request Time menjadi tanggal dan waktunya saja<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Nama file input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/method_get_only_NASA.csv&quot;</span>
@@ -1434,7 +1437,7 @@ Mengonversi Unix timestamp ke datetime...
 <h2>Filter Berdasarkan IP Address(Remote host) dan User Agent(Request Protocol)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># 1️⃣ File input</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
@@ -1545,7 +1548,7 @@ Menyimpan data ke Data/session_data_full_NASA.csv dengan pemisah koma &#39;,&#39
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># 1. Tentukan file input (file yang memiliki &#39;datetime_readable&#39;)</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/time_converted_NASA.csv&quot;</span>
@@ -1641,7 +1644,7 @@ Pratinjau data baru (sekarang dengan 4 kolom):
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;Data/session_data_full_NASA.csv&quot;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
 
@@ -2983,6 +2986,15 @@ Pratinjau data baru (sekarang dengan 4 kolom):
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Page Rank</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="Deteksi_Komunitas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Deteksi Komunitas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
