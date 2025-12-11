@@ -404,6 +404,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>PyPDF2<span class="w"> </span>nltk<span class="w"> </span>networkx<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>tqdm
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>Sastrawi
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">combinations</span>
@@ -442,6 +443,11 @@ Requirement already satisfied: packaging&gt;=20.0 in /home/codespace/.local/lib/
 Requirement already satisfied: pillow&gt;=8 in /home/codespace/.local/lib/python3.12/site-packages (from matplotlib) (12.0.0)
 Requirement already satisfied: pyparsing&gt;=3 in /home/codespace/.local/lib/python3.12/site-packages (from matplotlib) (3.2.5)
 Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+Collecting Sastrawi
+  Downloading Sastrawi-1.0.1-py2.py3-none-any.whl.metadata (909 bytes)
+Downloading Sastrawi-1.0.1-py2.py3-none-any.whl (209 kB)
+Installing collected packages: Sastrawi
+Successfully installed Sastrawi-1.0.1
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package punkt to /home/codespace/nltk_data...
@@ -516,15 +522,21 @@ relatif aman. Kondisi demikian dikontrol oleh konfigurasi tektonis I
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nltk.tokenize</span><span class="w"> </span><span class="kn">import</span> <span class="n">word_tokenize</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nltk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nltk.tokenize</span><span class="w"> </span><span class="kn">import</span> <span class="n">word_tokenize</span><span class="p">,</span> <span class="n">sent_tokenize</span>
 
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 1. CLEANING TEKS</span>
+<span class="c1"># ---------------------------------------------------------</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="c1"># buang bagian referensi kalau ada</span>
     <span class="n">cut</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(DAFTAR PUSTAKA|REFERENSI|References|Bibliographie)&quot;</span><span class="p">,</span>
                     <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cut</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="n">cut</span><span class="o">.</span><span class="n">start</span><span class="p">()]</span>
-    <span class="c1"># rapikan spasi</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
@@ -533,23 +545,85 @@ relatif aman. Kondisi demikian dikontrol oleh konfigurasi tektonis I
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Panjang teks cleaned:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cleaned</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cleaned</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
 
-<span class="c1"># --- tokenisasi kata: jaga urutan! ---</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 2. MEMECAH TEKS MENJADI KALIMAT (&gt;=10 KATA)</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="n">sentences_raw</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">cleaned</span><span class="p">)</span>
+<span class="n">sentences_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences_raw</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+
+<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences_raw</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="n">df_sent</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;sentence&quot;</span><span class="p">:</span> <span class="n">sentences</span><span class="p">})</span>
+<span class="n">csv_path</span> <span class="o">=</span> <span class="s2">&quot;sentences.csv&quot;</span>
+<span class="n">df_sent</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah kalimat dipakai (&gt;=10 kata): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 3. TOKENISASI KATA</span>
+<span class="c1"># ---------------------------------------------------------</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">cleaned</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 
-<span class="c1"># ambil hanya huruf (buang angka/tanda baca)</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 4. EKSTRAKSI KATA BERSIH (hapus angka &amp; simbol)</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># hapus ANGGKA, SIMBOL, TANDA BACA</span>
 <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span>
-<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>  <span class="c1"># buang string kosong</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total kata:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;20 kata pertama:&quot;</span><span class="p">,</span> <span class="n">words</span><span class="p">[:</span><span class="mi">20</span><span class="p">])</span>
+<span class="c1"># buang string kosong</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+
+<span class="c1"># buang kata sangat pendek (1 huruf) karena biasanya noise</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># cek kembali tidak ada angka atau simbol</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()]</span>
+
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 5. STOPWORD REMOVAL (SASTRAWI)</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Sastrawi.StopWordRemover.StopWordRemoverFactory</span><span class="w"> </span><span class="kn">import</span> <span class="n">StopWordRemoverFactory</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StopWordRemoverFactory</span><span class="p">()</span>
+<span class="n">stopwords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">get_stop_words</span><span class="p">())</span>
+
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="p">]</span>
+
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 6. PERBAIKAN KATA TERPISAH (OCR FIX)</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_simple</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">vocab_set</span><span class="p">):</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">vocab_set</span><span class="p">:</span>
+                <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                <span class="k">continue</span>
+        <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">merged</span>
+
+<span class="n">vocab_merge</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;departemen&quot;</span><span class="p">}</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">merge_simple</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">vocab_merge</span><span class="p">)</span>
+
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="c1"># 7. OUTPUT</span>
+<span class="c1"># ---------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total kata setelah semua cleaning:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;100 kata pertama:&quot;</span><span class="p">,</span> <span class="n">words</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Panjang teks cleaned: 20927
 DRR Action Plan Workshop: Strengthened Indonesian Resilience: Reducing Risk from Disasters Bencana Gempabumi Salahuddin Husein Depart emen Teknik Geologi , Fakultas Teknik, Universitas Gadjah Mada email: shddin @gmail.com Abstract: Bencana gempabumi di Indonesia adalah suatu keniscayaan, tidak hanya pada daerah yang selama ini diketahui seringkali mengalaminya, namun juga pada daerah yang dahulu diduga relatif aman. Kondisi demikian dikontrol oleh konfigurasi tektonis Indonesia di masa lampa u d
-Total kata: 2750
-20 kata pertama: [&#39;drr&#39;, &#39;action&#39;, &#39;plan&#39;, &#39;workshop&#39;, &#39;strengthened&#39;, &#39;indonesian&#39;, &#39;resilience&#39;, &#39;reducing&#39;, &#39;risk&#39;, &#39;from&#39;, &#39;disasters&#39;, &#39;bencana&#39;, &#39;gempabumi&#39;, &#39;salahuddin&#39;, &#39;husein&#39;, &#39;depart&#39;, &#39;emen&#39;, &#39;teknik&#39;, &#39;geologi&#39;, &#39;fakultas&#39;]
+
+Jumlah kalimat dipakai (&gt;=10 kata): 116
+
+Total kata setelah semua cleaning: 2012
+100 kata pertama: [&#39;drr&#39;, &#39;action&#39;, &#39;plan&#39;, &#39;workshop&#39;, &#39;strengthened&#39;, &#39;indonesian&#39;, &#39;resilience&#39;, &#39;reducing&#39;, &#39;risk&#39;, &#39;from&#39;, &#39;disasters&#39;, &#39;bencana&#39;, &#39;gempabumi&#39;, &#39;salahuddin&#39;, &#39;husein&#39;, &#39;departemen&#39;, &#39;teknik&#39;, &#39;geologi&#39;, &#39;fakultas&#39;, &#39;teknik&#39;, &#39;universitas&#39;, &#39;gadjah&#39;, &#39;mada&#39;, &#39;email&#39;, &#39;shddin&#39;, &#39;gmailcom&#39;, &#39;abstract&#39;, &#39;bencana&#39;, &#39;gempabumi&#39;, &#39;indonesia&#39;, &#39;suatu&#39;, &#39;keniscayaan&#39;, &#39;daerah&#39;, &#39;selama&#39;, &#39;diketahui&#39;, &#39;seringkali&#39;, &#39;mengalaminya&#39;, &#39;daerah&#39;, &#39;diduga&#39;, &#39;relatif&#39;, &#39;aman&#39;, &#39;kondisi&#39;, &#39;dikontrol&#39;, &#39;konfigurasi&#39;, &#39;tektonis&#39;, &#39;indonesia&#39;, &#39;masa&#39;, &#39;lampa&#39;, &#39;masa&#39;, &#39;sekarang&#39;, &#39;banyak&#39;, &#39;peristiwa&#39;, &#39;gempabumi&#39;, &#39;menelan&#39;, &#39;korban&#39;, &#39;ribuan&#39;, &#39;jiwa&#39;, &#39;kerugian&#39;, &#39;harta&#39;, &#39;benda&#39;, &#39;sangat&#39;, &#39;besar&#39;, &#39;kenyataan&#39;, &#39;menuntut&#39;, &#39;kemauan&#39;, &#39;belajar&#39;, &#39;memahami&#39;, &#39;fenomena&#39;, &#39;gempabumi&#39;, &#39;lebih&#39;, &#39;baik&#39;, &#39;mengur&#39;, &#39;angi&#39;, &#39;resiko&#39;, &#39;bencana&#39;, &#39;gempabumi&#39;, &#39;ditimbulkan&#39;, &#39;pergeseran&#39;, &#39;patahan&#39;, &#39;keberadaan&#39;, &#39;patahan&#39;, &#39;baik&#39;, &#39;permukaan&#39;, &#39;maupun&#39;, &#39;bawah&#39;, &#39;permukaan&#39;, &#39;dipetakan&#39;, &#39;baik&#39;, &#39;akurat&#39;, &#39;energi&#39;, &#39;gempabumi&#39;, &#39;merambat&#39;, &#39;sumber&#39;, &#39;pergeseran&#39;, &#39;patahan&#39;, &#39;beberapa&#39;, &#39;jenis&#39;, &#39;gelombang&#39;, &#39;menuntut&#39;, &#39;pengukuran&#39;]
 </pre></div>
 </div>
 </div>
@@ -575,14 +649,14 @@ Total kata: 2750
     <span class="k">else</span><span class="p">:</span>
         <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah node (kata unik):&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah node (kata):&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah edge (pasangan tetangga):&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah node (kata unik): 885
-Jumlah edge (pasangan tetangga): 2243
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah node (kata): 797
+Jumlah edge (pasangan tetangga): 1694
 </pre></div>
 </div>
 </div>
@@ -593,7 +667,7 @@ Jumlah edge (pasangan tetangga): 2243
 
 <span class="c1"># hitung frekuensi kata untuk pilih N terbesar</span>
 <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>   <span class="c1"># ubah kalau mau 30 / 50 kata, dsb</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 
 <span class="c1"># ambil N kata paling sering</span>
 <span class="n">top_vocab</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
@@ -613,12 +687,30 @@ Jumlah edge (pasangan tetangga): 2243
         <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># graph tak berarah</span>
 
 <span class="n">adj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">top_vocab</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">top_vocab</span><span class="p">)</span>
-<span class="n">adj_df</span>
+
+<span class="c1"># --- Degree Centrality ---</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">deg_cent</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+<span class="c1"># ambil hanya kata yang muncul di matriks</span>
+<span class="n">deg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">deg_cent</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;degree_centrality&#39;</span><span class="p">])</span>
+<span class="n">deg_df</span> <span class="o">=</span> <span class="n">deg_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">top_vocab</span><span class="p">]</span>
+<span class="n">deg_df</span> <span class="o">=</span> <span class="n">deg_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;degree_centrality&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degree Centrality untuk kata:&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">adj_df</span><span class="p">)</span>   <span class="c1"># tampilkan adjacency matrix</span>
+<span class="n">display</span><span class="p">(</span><span class="n">deg_df</span><span class="p">)</span>   <span class="c1"># tampilkan degree centrality</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kata yang dipakai di matriks: [&#39;yang&#39;, &#39;dan&#39;, &#39;gempabumi&#39;, &#39;gelombang&#39;, &#39;di&#39;, &#39;patahan&#39;, &#39;pada&#39;, &#39;bangunan&#39;, &#39;dengan&#39;, &#39;untuk&#39;, &#39;dapat&#39;, &#39;batuan&#39;, &#39;oleh&#39;, &#39;akan&#39;, &#39;besar&#39;, &#39;dalam&#39;, &#39;bidang&#39;, &#39;tidak&#39;, &#39;perioda&#39;, &#39;ini&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kata yang dipakai di matriks: [&#39;gempabumi&#39;, &#39;gelombang&#39;, &#39;patahan&#39;, &#39;bangunan&#39;, &#39;batuan&#39;, &#39;besar&#39;, &#39;bidang&#39;, &#39;perioda&#39;, &#39;permukaan&#39;, &#39;terjadi&#39;, &#39;gambar&#39;, &#39;gempa&#39;, &#39;skala&#39;, &#39;magnitudo&#39;, &#39;jenis&#39;, &#39;bila&#39;, &#39;bergerak&#39;, &#39;lebih&#39;, &#39;pergeseran&#39;, &#39;energi&#39;, &#39;merambat&#39;, &#39;tersebut&#39;, &#39;getaran&#39;, &#39;lempeng&#39;, &#39;indonesia&#39;, &#39;berbagai&#39;, &#39;peristiwa&#39;, &#39;korban&#39;, &#39;satu&#39;, &#39;detik&#39;, &#39;bencana&#39;, &#39;baik&#39;, &#39;seismik&#39;, &#39;suatu&#39;, &#39;daerah&#39;, &#39;menjadi&#39;, &#39;mampu&#39;, &#39;frekuensi&#39;, &#39;memiliki&#39;, &#39;gaya&#39;, &#39;atas&#39;, &#39;hingga&#39;, &#39;meninggal&#39;, &#39;disebut&#39;, &#39;per&#39;, &#39;material&#39;, &#39;banyak&#39;, &#39;beberapa&#39;, &#39;kerusakan&#39;, &#39;akselerasi&#39;, &#39;seluruh&#39;, &#39;sepanjang&#39;, &#39;bumi&#39;, &#39;tanah&#39;, &#39;siklus&#39;, &#39;horisontal&#39;, &#39;maupun&#39;, &#39;cepat&#39;, &#39;resonansi&#39;, &#39;interaksi&#39;, &#39;jumlah&#39;, &#39;orang&#39;, &#39;arah&#39;, &#39;vertikal&#39;, &#39;primer&#39;, &#39;kecepatan&#39;, &#39;geologi&#39;, &#39;selama&#39;, &#39;informasi&#39;, &#39;intensitas&#39;, &#39;senantiasa&#39;, &#39;faktor&#39;, &#39;tempat&#39;, &#39;dekat&#39;, &#39;mengalami&#39;, &#39;umumnya&#39;, &#39;blok&#39;, &#39;bergeser&#39;, &#39;muncul&#39;, &#39;paling&#39;, &#39;jarak&#39;, &#39;panjang&#39;, &#39;badan&#39;, &#39;tektonis&#39;, &#39;benda&#39;, &#39;sangat&#39;, &#39;bawah&#39;, &#39;akurat&#39;, &#39;disebabkan&#39;, &#39;menentukan&#39;, &#39;amplifikasi&#39;, &#39;generasi&#39;, &#39;berada&#39;, &#39;menggeser&#39;, &#39;akibat&#39;, &#39;yogyakarta&#39;, &#39;perlu&#39;, &#39;peta&#39;, &#39;longsor&#39;, &#39;lainnya&#39;]
+Degree Centrality untuk kata:
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -639,95 +731,51 @@ Jumlah edge (pasangan tetangga): 2243
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>yang</th>
-      <th>dan</th>
       <th>gempabumi</th>
       <th>gelombang</th>
-      <th>di</th>
       <th>patahan</th>
-      <th>pada</th>
       <th>bangunan</th>
-      <th>dengan</th>
-      <th>untuk</th>
-      <th>dapat</th>
       <th>batuan</th>
-      <th>oleh</th>
-      <th>akan</th>
       <th>besar</th>
-      <th>dalam</th>
       <th>bidang</th>
-      <th>tidak</th>
       <th>perioda</th>
-      <th>ini</th>
+      <th>permukaan</th>
+      <th>terjadi</th>
+      <th>...</th>
+      <th>amplifikasi</th>
+      <th>generasi</th>
+      <th>berada</th>
+      <th>menggeser</th>
+      <th>akibat</th>
+      <th>yogyakarta</th>
+      <th>perlu</th>
+      <th>peta</th>
+      <th>longsor</th>
+      <th>lainnya</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>yang</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>dan</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
       <th>gempabumi</th>
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
       <td>0</td>
       <td>0</td>
     </tr>
@@ -735,41 +783,19 @@ Jumlah edge (pasangan tetangga): 2243
       <th>gelombang</th>
       <td>1</td>
       <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>di</th>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
-      <td>0</td>
       <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -780,112 +806,21 @@ Jumlah edge (pasangan tetangga): 2243
     <tr>
       <th>patahan</th>
       <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>1</td>
-      <td>1</td>
-      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-    </tr>
-    <tr>
-      <th>pada</th>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>bangunan</th>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>dengan</th>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>untuk</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -893,15 +828,7 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
     </tr>
     <tr>
-      <th>dapat</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <th>bangunan</th>
       <td>0</td>
       <td>1</td>
       <td>0</td>
@@ -909,24 +836,106 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
       <td>0</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>batuan</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>yogyakarta</th>
       <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
-      <td>1</td>
       <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>perlu</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -939,11 +948,7 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
     </tr>
     <tr>
-      <th>oleh</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
+      <th>peta</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -954,48 +959,7 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>akan</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>besar</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -1008,40 +972,18 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
     </tr>
     <tr>
-      <th>dalam</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <th>longsor</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
-    </tr>
-    <tr>
-      <th>bidang</th>
-      <td>0</td>
-      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -1054,39 +996,7 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
     </tr>
     <tr>
-      <th>tidak</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>perioda</th>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
+      <th>lainnya</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -1097,26 +1007,13 @@ Jumlah edge (pasangan tetangga): 2243
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>ini</th>
+      <td>...</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -1124,6 +1021,76 @@ Jumlah edge (pasangan tetangga): 2243
     </tr>
   </tbody>
 </table>
+<p>100 rows × 100 columns</p>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>degree_centrality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>gempabumi</th>
+      <td>0.114322</td>
+    </tr>
+    <tr>
+      <th>gelombang</th>
+      <td>0.089196</td>
+    </tr>
+    <tr>
+      <th>patahan</th>
+      <td>0.072864</td>
+    </tr>
+    <tr>
+      <th>bangunan</th>
+      <td>0.056533</td>
+    </tr>
+    <tr>
+      <th>besar</th>
+      <td>0.042714</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>bawah</th>
+      <td>0.007538</td>
+    </tr>
+    <tr>
+      <th>amplifikasi</th>
+      <td>0.006281</td>
+    </tr>
+    <tr>
+      <th>badan</th>
+      <td>0.006281</td>
+    </tr>
+    <tr>
+      <th>meninggal</th>
+      <td>0.005025</td>
+    </tr>
+    <tr>
+      <th>blok</th>
+      <td>0.003769</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 1 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1133,8 +1100,8 @@ Jumlah edge (pasangan tetangga): 2243
 <span class="c1"># urutkan dari yang terbesar</span>
 <span class="n">pr_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># tampilkan 20 kata terpenting</span>
-<span class="n">top_pr</span> <span class="o">=</span> <span class="n">pr_sorted</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="c1"># tampilkan kata penting</span>
+<span class="n">top_pr</span> <span class="o">=</span> <span class="n">pr_sorted</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
 <span class="n">pr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">top_pr</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Kata&quot;</span><span class="p">,</span> <span class="s2">&quot;PageRank&quot;</span><span class="p">])</span>
 <span class="n">pr_df</span>
 </pre></div>
@@ -1166,103 +1133,153 @@ Jumlah edge (pasangan tetangga): 2243
   <tbody>
     <tr>
       <th>0</th>
-      <td>yang</td>
-      <td>0.030082</td>
+      <td>gempabumi</td>
+      <td>0.026955</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>dan</td>
-      <td>0.024787</td>
+      <td>gelombang</td>
+      <td>0.022269</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>gempabumi</td>
-      <td>0.020449</td>
+      <td>patahan</td>
+      <td>0.019362</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>gelombang</td>
-      <td>0.017071</td>
+      <td>bangunan</td>
+      <td>0.011402</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>patahan</td>
-      <td>0.014807</td>
+      <td>batuan</td>
+      <td>0.008199</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>di</td>
-      <td>0.014778</td>
+      <td>besar</td>
+      <td>0.007966</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>pada</td>
-      <td>0.009772</td>
+      <td>bidang</td>
+      <td>0.006811</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>bangunan</td>
-      <td>0.008228</td>
+      <td>perioda</td>
+      <td>0.006804</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>untuk</td>
-      <td>0.007067</td>
+      <td>terjadi</td>
+      <td>0.006729</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>dapat</td>
-      <td>0.006904</td>
+      <td>gempa</td>
+      <td>0.006539</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>dengan</td>
-      <td>0.006728</td>
+      <td>skala</td>
+      <td>0.006355</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>oleh</td>
-      <td>0.006516</td>
+      <td>permukaan</td>
+      <td>0.006287</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>akan</td>
-      <td>0.006249</td>
+      <td>magnitudo</td>
+      <td>0.006039</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>dalam</td>
-      <td>0.006201</td>
+      <td>gambar</td>
+      <td>0.005939</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>besar</td>
-      <td>0.005893</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>batuan</td>
-      <td>0.005837</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>gempa</td>
-      <td>0.005711</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>ini</td>
+      <td>bila</td>
       <td>0.005563</td>
     </tr>
     <tr>
+      <th>15</th>
+      <td>lebih</td>
+      <td>0.005531</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>indonesia</td>
+      <td>0.005487</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>lempeng</td>
+      <td>0.005437</td>
+    </tr>
+    <tr>
       <th>18</th>
-      <td>tidak</td>
-      <td>0.005473</td>
+      <td>bergerak</td>
+      <td>0.005408</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>perioda</td>
-      <td>0.005184</td>
+      <td>energi</td>
+      <td>0.005359</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>getaran</td>
+      <td>0.005288</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>tersebut</td>
+      <td>0.005048</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>merambat</td>
+      <td>0.005043</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>berbagai</td>
+      <td>0.004818</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>pergeseran</td>
+      <td>0.004798</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>jenis</td>
+      <td>0.004732</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>satu</td>
+      <td>0.004454</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>bencana</td>
+      <td>0.004401</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>mampu</td>
+      <td>0.004367</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>korban</td>
+      <td>0.004281</td>
     </tr>
   </tbody>
 </table>
@@ -1285,7 +1302,7 @@ Jumlah edge (pasangan tetangga): 2243
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/93b3f6440e59b31b2a5c3ae3bf35d8c2773bee83c3e6890f6614f51317532155.png" src="_images/93b3f6440e59b31b2a5c3ae3bf35d8c2773bee83c3e6890f6614f51317532155.png" />
+<img alt="_images/942a1df23508112158af93c6e8e9fce04464add0684c882b1fe3fc6436e5a194.png" src="_images/942a1df23508112158af93c6e8e9fce04464add0684c882b1fe3fc6436e5a194.png" />
 </div>
 </div>
 </section>
