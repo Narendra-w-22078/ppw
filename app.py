@@ -21,25 +21,16 @@ st.set_page_config(
 )
 
 # ==========================================
-# CSS ELEGAN + ANIMASI (AMAN)
+# CSS SEDERHANA & AMAN (TANPA ANIMASI BERAT)
 # ==========================================
 st.markdown("""
 <style>
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
 .card {
     background: var(--secondary-background-color);
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -123,22 +114,20 @@ def main():
         st.session_state.active_file_key = None
 
     # ---------- HEADER ----------
-    st.markdown("""
-    <div class="fade-in">
-        <h1>📄 Analisis Paper PDF</h1>
-        <p>Visualisasi relasi kata dan PageRank</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("📄 Analisis Paper PDF")
+    st.caption("Visualisasi relasi kata dan PageRank")
 
     # ---------- SIDEBAR ----------
     with st.sidebar:
-        st.markdown('<div class="card fade-in">', unsafe_allow_html=True)
+        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("📂 Upload & Pengaturan")
+
         uploaded_files = st.file_uploader(
             "Upload PDF (Bisa Banyak)",
             type="pdf",
             accept_multiple_files=True
         )
+
         window_size = st.slider("Jarak Hubungan Kata", 1, 5, 2)
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -179,40 +168,75 @@ def main():
         G, pr, df = data['graph'], data['pagerank'], data['df']
 
         st.markdown(f"""
-        <div class="card fade-in">
+        <div class="card">
             <b>{selected}</b><br>
             Kata Bersih: {data['count']} | Node: {len(G.nodes())}
         </div>
         """, unsafe_allow_html=True)
 
+        # ===== FILTER KATA UNTUK GRAPH =====
+        st.sidebar.divider()
+        st.sidebar.subheader("🔎 Filter Graph")
+
+        max_words = st.sidebar.slider(
+            "Jumlah kata ditampilkan",
+            min_value=10,
+            max_value=150,
+            value=40,
+            step=10
+        )
+
+        top_words = df.head(max_words)['Kata'].tolist()
+
+        selected_words = st.sidebar.multiselect(
+            "Pilih kata (opsional)",
+            options=top_words,
+            default=top_words
+        )
+
+        if selected_words:
+            G_vis = G.subgraph(selected_words)
+        else:
+            G_vis = G
+
         col1, col2 = st.columns([3, 2])
 
-        # GRAPH
+        # ---------- GRAPH ----------
         with col1:
-            st.markdown('<div class="card fade-in">', unsafe_allow_html=True)
+            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.subheader("🕸️ Relasi Kata")
-            pos = nx.spring_layout(G, seed=42)
 
-            net = Network(height="600px", width="100%")
-            net.from_nx(G)
+            net = Network(
+                height="600px",
+                width="100%",
+                bgcolor="#ffffff",
+                font_color="black"
+            )
+
+            net.from_nx(G_vis)
 
             for node in net.nodes:
-                score = pr.get(node['id'], 0.01)
+                score = pr.get(node['id'], 0.001)
                 node['size'] = score * 1000
                 node['physics'] = False
+                node['title'] = f"Kata: {node['id']}\nPageRank: {score:.4f}"
 
+            net.toggle_physics(False)
             net.save_graph("graph.html")
-            components.html(open("graph.html", "r", encoding="utf-8").read(), height=620)
+
+            with open("graph.html", "r", encoding="utf-8") as f:
+                components.html(f.read(), height=620)
+
             st.markdown('</div>', unsafe_allow_html=True)
 
-        # STATS
+        # ---------- STATS ----------
         with col2:
-            st.markdown('<div class="card fade-in">', unsafe_allow_html=True)
+            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.subheader("📊 Top 20 Kata")
             st.bar_chart(df.head(20).set_index("Kata")["PageRank"])
             st.markdown('</div>', unsafe_allow_html=True)
 
-            st.markdown('<div class="card fade-in">', unsafe_allow_html=True)
+            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.subheader("📋 Tabel Lengkap")
             st.dataframe(df, height=320, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
