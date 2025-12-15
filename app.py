@@ -178,12 +178,15 @@ def main():
         st.sidebar.divider()
         st.sidebar.subheader("🔎 Filter Graph")
 
-        max_words = st.sidebar.slider(
-            "Jumlah kata ditampilkan",
-            min_value=10,
-            max_value=150,
-            value=40,
-            step=10
+        total_words = len(df)
+
+        max_words = st.sidebar.number_input(
+            "Jumlah kata ditampilkan pada graph",
+            min_value=1,
+            max_value=total_words,
+            value=min(40, total_words),
+            step=1,
+            help=f"Total kata tersedia: {total_words}"
         )
 
         top_words = df.head(max_words)['Kata'].tolist()
