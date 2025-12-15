@@ -21,7 +21,7 @@ st.set_page_config(
 )
 
 # ==========================================
-# CSS SEDERHANA & AMAN (TANPA ANIMASI BERAT)
+# CSS SEDERHANA & AMAN
 # ==========================================
 st.markdown("""
 <style>
@@ -113,9 +113,8 @@ def main():
     if 'active_file_key' not in st.session_state:
         st.session_state.active_file_key = None
 
-    # ---------- HEADER ----------
     st.title("📄 Analisis Paper PDF")
-    st.caption("Visualisasi relasi kata dan PageRank")
+    st.caption("Visualisasi relasi kata & PageRank (statis, searchable)")
 
     # ---------- SIDEBAR ----------
     with st.sidebar:
@@ -174,33 +173,41 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-        # ===== FILTER KATA UNTUK GRAPH =====
+        # ===== FILTER GRAPH =====
         st.sidebar.divider()
-        st.sidebar.subheader("🔎 Filter Graph")
+        st.sidebar.subheader("🔎 Filter & Search Graph")
 
         total_words = len(df)
 
         max_words = st.sidebar.number_input(
-            "Jumlah kata ditampilkan pada graph",
+            "Jumlah kata ditampilkan",
             min_value=1,
             max_value=total_words,
             value=min(40, total_words),
-            step=1,
-            help=f"Total kata tersedia: {total_words}"
+            step=1
         )
 
         top_words = df.head(max_words)['Kata'].tolist()
 
         selected_words = st.sidebar.multiselect(
-            "Pilih kata (opsional)",
+            "Filter kata (opsional)",
             options=top_words,
             default=top_words
         )
 
-        if selected_words:
-            G_vis = G.subgraph(selected_words)
-        else:
-            G_vis = G
+        # ===== SEARCH KATA =====
+        search_input = st.sidebar.text_input(
+            "Cari & highlight kata (pisahkan dengan koma)",
+            placeholder="contoh: gempa, magnitudo, patahan"
+        )
+
+        search_terms = [
+            w.strip().lower()
+            for w in search_input.split(",")
+            if w.strip()
+        ]
+
+        G_vis = G.subgraph(selected_words) if selected_words else G
 
         col1, col2 = st.columns([3, 2])
 
@@ -219,10 +226,21 @@ def main():
             net.from_nx(G_vis)
 
             for node in net.nodes:
-                score = pr.get(node['id'], 0.001)
+                word = node['id']
+                score = pr.get(word, 0.001)
+
+                # DEFAULT STYLE
                 node['size'] = score * 1000
                 node['physics'] = False
-                node['title'] = f"Kata: {node['id']}\nPageRank: {score:.4f}"
+                node['color'] = "#97C2FC"
+
+                # HIGHLIGHT JIKA SEARCH MATCH
+                if word in search_terms:
+                    node['color'] = "#FF4B4B"      # MERAH
+                    node['size'] = score * 1600
+                    node['borderWidth'] = 3
+
+                node['title'] = f"Kata: {word}\nPageRank: {score:.4f}"
 
             net.toggle_physics(False)
             net.save_graph("graph.html")
