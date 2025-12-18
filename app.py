@@ -89,18 +89,30 @@ def process_text(text):
     ]
     stop_words.update(custom_stopwords)
 
-    return [w for w in words if w.isalpha() and w not in stop_words and len(w) > 2]
+    return [
+        w for w in words
+        if w.isalpha() and w not in stop_words and len(w) > 2
+    ]
 
 # ==========================================
 # GRAPH BUILDER
 # ==========================================
-def build_graph(words, window_size=2):
+def build_graph(words, window_size):
     G = nx.Graph()
     for i in range(len(words) - window_size):
         for j in range(1, window_size + 1):
             if words[i] != words[i + j]:
                 G.add_edge(words[i], words[i + j])
     return G
+
+# ==========================================
+# CACHE GRAPH & PAGERANK
+# ==========================================
+@st.cache_data
+def compute_graph(words, window_size):
+    G = build_graph(words, window_size)
+    pr = nx.pagerank(G)
+    return G, pr
 
 # ==========================================
 # MAIN APP
@@ -114,7 +126,7 @@ def main():
         st.session_state.active_file_key = None
 
     st.title("📄 Analisis Paper PDF")
-    st.caption("Visualisasi relasi kata & PageRank (statis, searchable)")
+    st.caption("Visualisasi relasi kata & PageRank (dynamic window size)")
 
     # ---------- SIDEBAR ----------
     with st.sidebar:
@@ -127,10 +139,16 @@ def main():
             accept_multiple_files=True
         )
 
-        window_size = st.slider("Jarak Hubungan Kata", 1, 5, 2)
+        window_size = st.slider(
+            "Jarak Hubungan Kata",
+            min_value=1,
+            max_value=5,
+            value=2
+        )
+
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ---------- PROCESS ----------
+    # ---------- PROCESS PDF ----------
     if uploaded_files:
         for uploaded_file in uploaded_files:
             if uploaded_file.name not in st.session_state.paper_data:
@@ -138,21 +156,11 @@ def main():
                     raw_text = extract_text_from_pdf(uploaded_file)
                     words = process_text(raw_text)
 
-                    if len(words) > 5:
-                        G = build_graph(words, window_size)
-                        pr = nx.pagerank(G)
-
-                        df = pd.DataFrame(pr.items(), columns=['Kata', 'PageRank'])
-                        df = df.sort_values(by='PageRank', ascending=False).reset_index(drop=True)
-                        df.insert(0, 'ID', range(1, len(df) + 1))
-
-                        st.session_state.paper_data[uploaded_file.name] = {
-                            'graph': G,
-                            'pagerank': pr,
-                            'df': df,
-                            'count': len(words)
-                        }
-                        st.session_state.active_file_key = uploaded_file.name
+                    st.session_state.paper_data[uploaded_file.name] = {
+                        'words': words,
+                        'count': len(words)
+                    }
+                    st.session_state.active_file_key = uploaded_file.name
 
     # ---------- DISPLAY ----------
     if st.session_state.paper_data:
@@ -164,41 +172,46 @@ def main():
         )
 
         data = st.session_state.paper_data[selected]
-        G, pr, df = data['graph'], data['pagerank'], data['df']
+        words = data['words']
+
+        # REBUILD GRAPH SETIAP SLIDER BERUBAH
+        G, pr = compute_graph(words, window_size)
+
+        df = pd.DataFrame(pr.items(), columns=['Kata', 'PageRank'])
+        df = df.sort_values(by='PageRank', ascending=False).reset_index(drop=True)
+        df.insert(0, 'ID', range(1, len(df) + 1))
 
         st.markdown(f"""
         <div class="card">
             <b>{selected}</b><br>
-            Kata Bersih: {data['count']} | Node: {len(G.nodes())}
+            Kata Bersih: {data['count']} |
+            Node: {len(G.nodes())} |
+            Edge: {len(G.edges())}
         </div>
         """, unsafe_allow_html=True)
 
-        # ===== FILTER GRAPH =====
+        # ---------- FILTER ----------
         st.sidebar.divider()
-        st.sidebar.subheader("🔎 Filter & Search Graph")
-
-        total_words = len(df)
+        st.sidebar.subheader("🔎 Filter Graph")
 
         max_words = st.sidebar.number_input(
             "Jumlah kata ditampilkan",
             min_value=1,
-            max_value=total_words,
-            value=min(40, total_words),
-            step=1
+            max_value=len(df),
+            value=min(40, len(df))
         )
 
         top_words = df.head(max_words)['Kata'].tolist()
 
         selected_words = st.sidebar.multiselect(
-            "Filter kata (opsional)",
+            "Pilih kata",
             options=top_words,
             default=top_words
         )
 
-        # ===== SEARCH KATA =====
         search_input = st.sidebar.text_input(
-            "Cari & highlight kata (pisahkan dengan koma)",
-            placeholder="contoh: gempa, magnitudo, patahan"
+            "Cari & highlight kata",
+            placeholder="pisahkan dengan koma"
         )
 
         search_terms = [
@@ -229,18 +242,16 @@ def main():
                 word = node['id']
                 score = pr.get(word, 0.001)
 
-                # DEFAULT STYLE
-                node['size'] = score * 1000
+                node['size'] = score * 1200
                 node['physics'] = False
                 node['color'] = "#97C2FC"
 
-                # HIGHLIGHT JIKA SEARCH MATCH
                 if word in search_terms:
-                    node['color'] = "#FF4B4B"      # MERAH
-                    node['size'] = score * 1600
+                    node['color'] = "#FF4B4B"
+                    node['size'] = score * 1800
                     node['borderWidth'] = 3
 
-                node['title'] = f"Kata: {word}\nPageRank: {score:.4f}"
+                node['title'] = f"{word}<br>PageRank: {score:.4f}"
 
             net.toggle_physics(False)
             net.save_graph("graph.html")
