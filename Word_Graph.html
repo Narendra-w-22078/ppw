@@ -374,7 +374,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -390,6 +392,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph">Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix">Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#page-rank">Page Rank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-graph">Visualisasi Graph</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -401,6 +417,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="word-graph">
 <h1>Word Graph<a class="headerlink" href="#word-graph" title="Permalink to this heading">#</a></h1>
+<section id="import-library">
+<h2>Import Library<a class="headerlink" href="#import-library" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>PyPDF2<span class="w"> </span>nltk<span class="w"> </span>networkx<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>tqdm
@@ -465,6 +483,10 @@ Successfully installed Sastrawi-1.0.1
 </div>
 </div>
 </div>
+</section>
+<section id="load-data">
+<h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this heading">#</a></h2>
+<p>Kode ini digunakan untuk membaca dan mengekstraksi teks dari file PDF sebagai tahap awal pengolahan data teks. Library PyPDF2 digunakan untuk mengambil teks dari setiap halaman PDF, kemudian seluruh teks digabungkan menjadi satu string. Library pendukung seperti NLTK, Pandas, NumPy, NetworkX, dan Matplotlib diimpor untuk keperluan pemrosesan bahasa alami, analisis data, serta visualisasi pada tahap selanjutnya. Resource punkt dari NLTK diunduh untuk mendukung proses tokenisasi. Setelah proses ekstraksi selesai, panjang teks mentah ditampilkan dan sebagian isi teks dicetak sebagai pratinjau guna memastikan bahwa file PDF berhasil dibaca dengan benar.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">PyPDF2</span>
@@ -520,6 +542,10 @@ relatif aman. Kondisi demikian dikontrol oleh konfigurasi tektonis I
 </div>
 </div>
 </div>
+</section>
+<section id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this heading">#</a></h2>
+<p>Kode ini digunakan untuk melakukan preprocessing teks hasil ekstraksi PDF sebelum dianalisis lebih lanjut. Proses dimulai dengan pembersihan teks untuk menghapus bagian daftar pustaka atau referensi serta merapikan spasi berlebih. Selanjutnya, teks dipecah menjadi kalimat dan hanya kalimat dengan minimal 10 kata yang disimpan dan diekspor ke dalam file CSV. Setelah itu dilakukan tokenisasi kata, penghapusan angka, simbol, tanda baca, serta kata yang terlalu pendek agar mengurangi noise. Stopword bahasa Indonesia dihapus menggunakan library Sastrawi untuk mempertahankan kata-kata bermakna. Selain itu, diterapkan perbaikan sederhana untuk menggabungkan kata yang terpisah akibat kesalahan OCR. Hasil akhir dari proses ini berupa daftar kata bersih yang siap digunakan untuk analisis teks lanjutan seperti pemodelan topik atau analisis jaringan kata.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
@@ -628,6 +654,10 @@ Total kata setelah semua cleaning: 2012
 </div>
 </div>
 </div>
+</section>
+<section id="graph">
+<h2>Graph<a class="headerlink" href="#graph" title="Permalink to this heading">#</a></h2>
+<p>Kode ini digunakan untuk membangun graf jaringan kata (word co-occurrence network) menggunakan library NetworkX. Setiap kata hasil preprocessing direpresentasikan sebagai node, sedangkan edge dibentuk berdasarkan pasangan kata yang muncul secara berurutan (jarak 1) dalam teks. Jika pasangan kata yang sama muncul lebih dari satu kali, maka bobot (weight) pada edge akan ditingkatkan untuk merepresentasikan frekuensi kemunculan bersama. Graf yang dihasilkan menggambarkan hubungan lokal antar kata dalam teks dan dapat digunakan untuk analisis struktur jaringan, identifikasi kata penting, maupun visualisasi pola keterkaitan kata.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">zip_longest</span>
@@ -661,6 +691,14 @@ Jumlah edge (pasangan tetangga): 1694
 </div>
 </div>
 </div>
+</section>
+<section id="matrix">
+<h2>Matrix<a class="headerlink" href="#matrix" title="Permalink to this heading">#</a></h2>
+<p>Kode ini digunakan untuk membangun matriks ketetanggaan (adjacency matrix) berdasarkan jaringan kata yang telah dibentuk sebelumnya serta menghitung degree centrality dari setiap kata. Pertama, frekuensi kemunculan kata dihitung untuk memilih N kata paling sering muncul, yang kemudian dijadikan sebagai kosakata utama dalam matriks. Setiap kata diberi indeks dan matriks berukuran
+𝑁
+×
+𝑁
+N×N diinisialisasi dengan nilai nol, lalu diisi berdasarkan keberadaan edge antar kata pada graf jaringan (graf tak berarah). Selanjutnya, degree centrality dihitung menggunakan NetworkX untuk mengukur tingkat keterhubungan setiap kata dalam jaringan. Hasil akhir berupa adjacency matrix dan tabel degree centrality ditampilkan untuk membantu mengidentifikasi kata-kata yang paling berpengaruh atau sentral dalam struktur jaringan teks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
@@ -1093,6 +1131,10 @@ Degree Centrality untuk kata:
 <p>100 rows × 1 columns</p>
 </div></div></div>
 </div>
+</section>
+<section id="page-rank">
+<h2>Page Rank<a class="headerlink" href="#page-rank" title="Permalink to this heading">#</a></h2>
+<p>Pagerank ini digunakan untuk mengetahui seberapa penting atau seberapa berkualitas suatu kata yang dipilih didalam papper gempa yang saya ambil.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">)</span>  <span class="c1"># pakai bobot berapa sering jadi tetangga</span>
@@ -1285,6 +1327,10 @@ Degree Centrality untuk kata:
 </table>
 </div></div></div>
 </div>
+</section>
+<section id="visualisasi-graph">
+<h2>Visualisasi Graph<a class="headerlink" href="#visualisasi-graph" title="Permalink to this heading">#</a></h2>
+<p>Visualisasi ini digunakan untuk mengetahui beberapa kata yang diambil dan mengetahui tetangga nya</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -1305,6 +1351,7 @@ Degree Centrality untuk kata:
 <img alt="_images/942a1df23508112158af93c6e8e9fce04464add0684c882b1fe3fc6436e5a194.png" src="_images/942a1df23508112158af93c6e8e9fce04464add0684c882b1fe3fc6436e5a194.png" />
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1352,6 +1399,27 @@ Degree Centrality untuk kata:
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph">Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix">Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#page-rank">Page Rank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-graph">Visualisasi Graph</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
