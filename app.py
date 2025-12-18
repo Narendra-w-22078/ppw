@@ -264,8 +264,12 @@ def main():
         # ---------- STATS ----------
         with col2:
             st.markdown('<div class="card">', unsafe_allow_html=True)
-            st.subheader("📊 Top 20 Kata")
-            st.bar_chart(df.head(20).set_index("Kata")["PageRank"])
+            st.subheader(f"📊 Top {max_words} Kata")
+            st.bar_chart(
+                df.head(max_words)
+                    .set_index("Kata")["PageRank"]
+            )
+
             st.markdown('</div>', unsafe_allow_html=True)
 
             st.markdown('<div class="card">', unsafe_allow_html=True)
